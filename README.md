@@ -6,11 +6,21 @@
 Method PROTES (PRobability Optimizer with TEnsor Sampling) for optimization of the multidimensional arrays and  discretized multivariable functions based on the tensor train (TT) format.
 
 
+## Installation
+
+The package can be installed via pip: `pip install protes` (it requires the [Python](https://www.python.org) programming language of the version >= 3.6). The [jax](https://github.com/google/jax) and [optax](https://github.com/deepmind/optax) libraries should be manually installed for successful operation.
+
+
+## Documentation and examples
+
+Please see the documentation for function `protes` with a detailed description of all optimizer parameters. Examples are presented in the `demo` folder. A simple demo can be run in the console with a command `python demo/demo_func.py`.
+
+
 ## Authors
 
 - [Anastasia Batsheva](https://github.com/anabatsh)
-- [Ivan Oseledets](https://github.com/oseledets)
 - [Andrei Chertkov](https://github.com/AndreiChertkov)
+- [Ivan Oseledets](https://github.com/oseledets)
 - [Gleb Ryzhakov](https://github.com/G-Ryzhakov)
 
 
