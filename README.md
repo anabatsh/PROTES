@@ -8,12 +8,12 @@ Method PROTES (PRobability Optimizer with TEnsor Sampling) for optimization of t
 
 ## Installation
 
-The package can be installed via pip: `pip install protes` (it requires the [Python](https://www.python.org) programming language of the version >= 3.6). The [jax](https://github.com/google/jax) and [optax](https://github.com/deepmind/optax) libraries should be manually installed for successful operation.
+The package can be installed via pip: `pip install protes` (it requires the [Python](https://www.python.org) programming language of the version >= 3.6). The [jax](https://github.com/google/jax) and [optax](https://github.com/deepmind/optax) libraries should be manually installed for successful operation of jax version of the code. Alternatively, an equivalent pytorch version can be used (it is currently very slow), in this case, please, install manually [pytorch](https://pytorch.org/) library.
 
 
 ## Documentation and examples
 
-Please see the documentation for function `protes` with a detailed description of all optimizer parameters. Examples are presented in the `demo` folder. A simple demo can be run in the console with a command `python demo/demo_func.py`.
+Please see the documentation for function `protes` with a detailed description of all optimizer parameters. Examples are presented in the `demo` folder. A simple demo can be run in the console with a command `python demo/demo_func.py` (to run the pytorch version, please, specify the appropriate argument: `python demo/demo_func.py tor`).
 
 
 ## Authors
