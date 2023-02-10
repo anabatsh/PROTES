@@ -1,11 +1,12 @@
 import numpy as np
+import sys
 from time import perf_counter as tpc
 
 
 from protes import protes
 
 
-def func_build(d, n):
+def func_build(d, n, mod='jax'):
     """Binary knapsack problem."""
 
     assert d == 50
@@ -25,6 +26,10 @@ def func_build(d, n):
     C = 1000
 
     def func(i):
+        """Target function: y=f(i); [d] -> float."""
+        if mod == 'tor':
+            i = i.numpy()
+
         cost = np.dot(p, i)
         constr = np.dot(w, i)
         return 0 if constr > C else -cost
@@ -32,7 +37,7 @@ def func_build(d, n):
     return lambda I: np.array([func(i) for i in I])
 
 
-def demo():
+def demo(mod):
     """Demonstration for QUBO problem.
 
     We will solve the binary knapsack problem with fixed weights wi in [5, 20],
@@ -43,17 +48,63 @@ def demo():
     to antenna topology optimization. Note that ths problem has known exact
     solution y_min = -3103.
 
+    The result in console then "mod" is "jax" should looks like this:
+
+    protes-jax > m 5.0e+01 | t 4.683e+01 | y -2.7120e+03
+    protes-jax > m 1.0e+02 | t 4.699e+01 | y -2.7370e+03
+    protes-jax > m 6.5e+02 | t 4.877e+01 | y -2.7610e+03
+    protes-jax > m 9.0e+02 | t 4.953e+01 | y -2.8040e+03
+    protes-jax > m 1.2e+03 | t 5.031e+01 | y -2.9050e+03
+    protes-jax > m 2.5e+03 | t 5.463e+01 | y -2.9730e+03
+    protes-jax > m 3.2e+03 | t 5.677e+01 | y -2.9760e+03
+    protes-jax > m 4.4e+03 | t 6.045e+01 | y -2.9950e+03
+    protes-jax > m 4.9e+03 | t 6.213e+01 | y -3.0510e+03
+    protes-jax > m 7.0e+03 | t 6.901e+01 | y -3.0670e+03
+    protes-jax > m 8.5e+03 | t 7.382e+01 | y -3.0790e+03
+    protes-jax > m 9.0e+03 | t 7.519e+01 | y -3.0830e+03
+    protes-jax > m 9.8e+03 | t 7.815e+01 | y -3.0870e+03
+    protes-jax > m 1.2e+04 | t 8.353e+01 | y -3.0910e+03
+    protes-jax > m 2.0e+04 | t 1.103e+02 | y -3.0910e+03 <<< DONE
+
+    The result in console then "mod" is "tor" should looks like this:
+
+    protes-tor > m 5.0e+01 | t 4.503e+00 | y -2.7220e+03
+    protes-tor > m 1.0e+02 | t 8.885e+00 | y -2.7640e+03
+    protes-tor > m 5.0e+02 | t 4.263e+01 | y -2.7790e+03
+    protes-tor > m 1.0e+03 | t 8.470e+01 | y -2.8120e+03
+    protes-tor > m 1.5e+03 | t 1.272e+02 | y -2.8710e+03
+    protes-tor > m 2.2e+03 | t 1.831e+02 | y -2.8960e+03
+    protes-tor > m 2.9e+03 | t 2.475e+02 | y -2.9060e+03
+    protes-tor > m 3.0e+03 | t 2.562e+02 | y -2.9680e+03
+    protes-tor > m 5.0e+03 | t 4.226e+02 | y -2.9760e+03
+    protes-tor > m 5.2e+03 | t 4.486e+02 | y -2.9860e+03
+    protes-tor > m 5.3e+03 | t 4.529e+02 | y -3.0100e+03
+    protes-tor > m 5.4e+03 | t 4.617e+02 | y -3.0240e+03
+    protes-tor > m 5.8e+03 | t 4.960e+02 | y -3.0430e+03
+    protes-tor > m 6.8e+03 | t 5.829e+02 | y -3.0490e+03
+    protes-tor > m 7.1e+03 | t 6.080e+02 | y -3.0550e+03
+    protes-tor > m 7.4e+03 | t 6.289e+02 | y -3.0690e+03
+    protes-tor > m 8.8e+03 | t 7.575e+02 | y -3.0880e+03
+    protes-tor > m 1.0e+04 | t 8.696e+02 | y -3.0900e+03
+    protes-tor > m 1.0e+04 | t 8.739e+02 | y -3.0930e+03
+    protes-tor > m 1.2e+04 | t 9.982e+02 | y -3.0940e+03
+    protes-tor > m 1.2e+04 | t 1.032e+03 | y -3.0960e+03
+    protes-tor > m 1.3e+04 | t 1.096e+03 | y -3.1030e+03
+    protes-tor > m 2.0e+04 | t 1.697e+03 | y -3.1030e+03 <<< DONE
+
     """
     d = 50               # Dimension
     n = 2                # Mode size
     m = int(2.E+4)       # Number of requests to the objective function
-    f = func_build(d, n) # Target function (y=f(I); [samples,d] -> [samples])
+    f = func_build(d, n, mod)
 
     t = tpc()
-    i_opt, y_opt = protes(f, [n]*d, m, log=True)
+    i_opt, y_opt = protes(f, [n]*d, m, mod=mod, log=True)
     print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t}')
 
 
 if __name__ == '__main__':
     np.random.seed(42)
-    demo()
+
+    mod = sys.argv[1] if len(sys.argv) > 1 else 'jax'
+    demo(mod)
