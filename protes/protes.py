@@ -1,11 +1,4 @@
-try:
-    from .protes_jax import protes_jax
-    WITH_JAX = True
-except Exception as e:
-    WITH_JAX = False
-
-
-def protes(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, info={}, i_ref=None, is_max=False, log=False, log_ind=False, mod='jax'):
+def protes(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, info={}, i_ref=None, is_max=False, log=False, log_ind=False, mod='jax', device='cpu'):
     """Tensor optimization based on sampling from the probability TT-tensor.
 
     Method PROTES (PRobability Optimizer with TEnsor Sampling) for optimization
@@ -44,7 +37,10 @@ def protes(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, inf
         log_ind (bool): if flag is set and "log" is True, then the current
             optimal multi-index will be printed every step.
         mod (str): the type of optimizer to use. Currently available values are:
-            "jax" (jax code; default value).
+            "jax" (jax code; default value) and "tor" (torch code).
+        device (str): device for computations ('cpu' or 'cuda'). This parameter
+            is used only if the "mod" is "tor" (jax itself selects the best
+            available device).
 
     Returns:
         tuple: multi-index "i_opt" (list of the length "d") corresponding to
@@ -52,11 +48,25 @@ def protes(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, inf
 
     """
     if mod == 'jax':
-        if not WITH_JAX:
+        try:
+            from .protes_jax import protes_jax
+        except Exception as e:
             msg = 'For "jax" version "jax" and "optax" packages are required.'
             raise ValueError(msg)
+
         return protes_jax(f, n, m, k, k_top, k_gd, lr, r, P, seed, info,
             i_ref, is_max, log, log_ind, mod)
+
+
+    elif mod == 'tor':
+        try:
+            from .protes_tor import protes_tor
+        except Exception as e:
+            msg = 'For "tor" version "torch" package is required.'
+            raise ValueError(msg)
+
+        return protes_tor(f, n, m, k, k_top, k_gd, lr, r, P, seed, info,
+            i_ref, is_max, log, log_ind, mod, device)
 
     else:
         raise ValueError('Invalid "mod" parameter.')
