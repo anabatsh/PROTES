@@ -4,7 +4,7 @@ import optax
 from time import perf_counter as tpc
 
 
-def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, info={}, i_ref=None, is_max=False, log=False, log_ind=False, mod='jax'):
+def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, info={}, i_ref=None, is_max=False, log=False, log_ind=False, mod='jax', device='cpu'):
     time = tpc()
     info.update({'mod': mod, 'is_max': is_max, 'm': 0, 't': 0,
         'i_opt': None, 'y_opt': None, 'm_opt_list': [], 'y_opt_list': [],
@@ -13,15 +13,15 @@ def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42,
 
     rng = jax.random.PRNGKey(seed)
 
-    optim = optax.adam(lr)
-    sample = jax.jit(jax.vmap(_sample, (None, 0)))
-    likelihood = jax.jit(jax.vmap(_likelihood, (None, 0)))
-
     if P is None:
         rng, key = jax.random.split(rng)
         P = _generate_initial(n, r, key)
 
+    optim = optax.adam(lr)
     state = optim.init(P)
+
+    sample = jax.jit(jax.vmap(_sample, (None, 0)))
+    likelihood = jax.jit(jax.vmap(_likelihood, (None, 0)))
 
     @jax.jit
     def loss(P_cur, I_cur):
@@ -41,6 +41,7 @@ def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42,
         I = sample(P, jax.random.split(key, k))
 
         y = f(I)
+        y = np.array(y)
         info['m'] += y.shape[0]
 
         is_new = _check(I, y, info)
@@ -114,7 +115,7 @@ def _interface_matrices(Y):
     Z[d] = np.ones(1)
     for j in range(d-1, 0, -1):
         Z[j] = np.sum(Y[j], axis=1) @ Z[j+1]
-        Z[j] = Z[j] / np.linalg.norm(Z[j])
+        Z[j] /= np.linalg.norm(Z[j])
     return Z
 
 
@@ -182,7 +183,7 @@ def _sample(Y, key):
     i = jax.random.choice(keys[0], np.arange(Y[0].shape[1]), p=G)
     I = I.at[0].set(i)
 
-    Z[0] = Y[0][0, I[0], :]
+    Z[0] = Y[0][0, i, :]
 
     for j in range(1, d):
         G = np.einsum('r,riq,q->i', Z[j-1], Y[j], Z[j+1])
@@ -192,7 +193,7 @@ def _sample(Y, key):
         i = jax.random.choice(keys[j], np.arange(Y[j].shape[1]), p=G)
         I = I.at[j].set(i)
 
-        Z[j] = Z[j-1] @ Y[j][:, I[j], :]
+        Z[j] = Z[j-1] @ Y[j][:, i, :]
         Z[j] /= np.linalg.norm(Z[j])
 
     return I
