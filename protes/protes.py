@@ -50,13 +50,17 @@ def protes(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, inf
     if mod == 'jax':
         try:
             from .protes_jax import protes_jax
+            from .protes_jax_fast import protes_jax_fast
         except Exception as e:
             msg = 'For "jax" version "jax" and "optax" packages are required.'
             raise ValueError(msg)
 
-        return protes_jax(f, n, m, k, k_top, k_gd, lr, r, P, seed, info,
-            i_ref, is_max, log, log_ind, mod)
-
+        if len(n) >= 3 and len(set(n)) == 1:
+            return protes_jax_fast(f, n, m, k, k_top, k_gd, lr, r, P, seed,
+                info, i_ref, is_max, log, log_ind, mod)
+        else:
+            return protes_jax(f, n, m, k, k_top, k_gd, lr, r, P, seed,
+                info, i_ref, is_max, log, log_ind, mod)
 
     elif mod == 'tor':
         try:
