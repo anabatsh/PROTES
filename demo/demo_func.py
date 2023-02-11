@@ -45,11 +45,10 @@ def demo(mod):
 
     The result in console then "mod" is "jax" should looks like this:
 
-    protes-jax > m 5.0e+01 | t 5.249e+00 | y  1.6556e+01
-    protes-jax > m 1.8e+03 | t 8.676e+00 | y  1.5171e+01
-    protes-jax > m 2.6e+03 | t 9.982e+00 | y  1.2532e+01
-    protes-jax > m 4.2e+03 | t 1.325e+01 | y  1.2532e+01
-    protes-jax > m 1.0e+04 | t 2.495e+01 | y  1.2532e+01 <<< DONE
+    protes-jax > m 5.0e+01 | t 3.163e+00 | y  1.5171e+01
+    protes-jax > m 2.6e+03 | t 7.712e+00 | y  1.2532e+01
+    protes-jax > m 4.9e+03 | t 1.217e+01 | y  1.2532e+01
+    protes-jax > m 1.0e+04 | t 2.139e+01 | y  1.2532e+01 <<< DONE
 
     The result in console then "mod" is "tor" should looks like this:
 

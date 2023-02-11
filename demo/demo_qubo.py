@@ -50,21 +50,25 @@ def demo(mod):
 
     The result in console then "mod" is "jax" should looks like this:
 
-    protes-jax > m 5.0e+01 | t 4.683e+01 | y -2.7120e+03
-    protes-jax > m 1.0e+02 | t 4.699e+01 | y -2.7370e+03
-    protes-jax > m 6.5e+02 | t 4.877e+01 | y -2.7610e+03
-    protes-jax > m 9.0e+02 | t 4.953e+01 | y -2.8040e+03
-    protes-jax > m 1.2e+03 | t 5.031e+01 | y -2.9050e+03
-    protes-jax > m 2.5e+03 | t 5.463e+01 | y -2.9730e+03
-    protes-jax > m 3.2e+03 | t 5.677e+01 | y -2.9760e+03
-    protes-jax > m 4.4e+03 | t 6.045e+01 | y -2.9950e+03
-    protes-jax > m 4.9e+03 | t 6.213e+01 | y -3.0510e+03
-    protes-jax > m 7.0e+03 | t 6.901e+01 | y -3.0670e+03
-    protes-jax > m 8.5e+03 | t 7.382e+01 | y -3.0790e+03
-    protes-jax > m 9.0e+03 | t 7.519e+01 | y -3.0830e+03
-    protes-jax > m 9.8e+03 | t 7.815e+01 | y -3.0870e+03
-    protes-jax > m 1.2e+04 | t 8.353e+01 | y -3.0910e+03
-    protes-jax > m 2.0e+04 | t 1.103e+02 | y -3.0910e+03 <<< DONE
+    protes-jax > m 5.0e+01 | t 3.109e+00 | y -2.5310e+03
+    protes-jax > m 1.0e+02 | t 3.231e+00 | y -2.7350e+03
+    protes-jax > m 2.5e+02 | t 3.586e+00 | y -2.8120e+03
+    protes-jax > m 5.0e+02 | t 4.134e+00 | y -2.8650e+03
+    protes-jax > m 2.0e+03 | t 7.526e+00 | y -2.9390e+03
+    protes-jax > m 3.2e+03 | t 1.018e+01 | y -2.9950e+03
+    protes-jax > m 3.7e+03 | t 1.133e+01 | y -3.0090e+03
+    protes-jax > m 4.4e+03 | t 1.288e+01 | y -3.0110e+03
+    protes-jax > m 5.0e+03 | t 1.409e+01 | y -3.0410e+03
+    protes-jax > m 6.2e+03 | t 1.692e+01 | y -3.0510e+03
+    protes-jax > m 6.6e+03 | t 1.756e+01 | y -3.0610e+03
+    protes-jax > m 7.4e+03 | t 1.948e+01 | y -3.0630e+03
+    protes-jax > m 8.0e+03 | t 2.065e+01 | y -3.0660e+03
+    protes-jax > m 8.2e+03 | t 2.097e+01 | y -3.0740e+03
+    protes-jax > m 8.2e+03 | t 2.119e+01 | y -3.0830e+03
+    protes-jax > m 8.5e+03 | t 2.175e+01 | y -3.0840e+03
+    protes-jax > m 8.6e+03 | t 2.186e+01 | y -3.0950e+03
+    protes-jax > m 1.1e+04 | t 2.627e+01 | y -3.0980e+03
+    protes-jax > m 2.0e+04 | t 4.660e+01 | y -3.0980e+03 <<< DONE
 
     The result in console then "mod" is "tor" should looks like this:
 
