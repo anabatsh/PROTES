@@ -25,9 +25,10 @@ with open(os.path.join(here, 'protes/__init__.py'), encoding='utf-8') as f:
     version = version.group(1)
 
 
-with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
-    requirements = f.read().split('\n')
-    requirements = [r for r in requirements if len(r) >= 3]
+# with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
+#     requirements = f.read().split('\n')
+#     requirements = [r for r in requirements if len(r) >= 3]
+requirements = []
 
 
 setup_args = dict(
@@ -40,7 +41,7 @@ setup_args = dict(
     author_email='andre.chertkov@gmail.com',
     url='https://github.com/anabatsh/PROTES',
     classifiers=[
-        'Development Status :: 3 - Alpha', # 4 - Beta, 5 - Production/Stable
+        'Development Status :: 4 - Beta', # 3 - Alpha, 5 - Production/Stable
         'License :: OSI Approved :: MIT License',
         'Topic :: Scientific/Engineering',
         'Topic :: Scientific/Engineering :: Mathematics',
