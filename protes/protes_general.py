@@ -1,15 +1,15 @@
 import jax
-import jax.numpy as np
+import jax.numpy as jnp
 import optax
 from time import perf_counter as tpc
 
 
-def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42, info={}, i_ref=None, is_max=False, log=False, log_ind=False, mod='jax', device='cpu'):
+def protes_general(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=False, log=False, log_ind=False, info={}, P=None):
     time = tpc()
-    info.update({'mod': mod, 'is_max': is_max, 'm': 0, 't': 0,
-        'i_opt': None, 'y_opt': None, 'm_opt_list': [], 'y_opt_list': [],
-        'm_ref_list': [],
-        'p_ref_list': [], 'p_opt_ref_list': [], 'p_top_ref_list': []})
+    info.update({'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
+        'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
+        'is_rand': P is None, 't': 0, 'i_opt': None, 'y_opt': None,
+        'm_opt_list': [], 'y_opt_list': []})
 
     rng = jax.random.PRNGKey(seed)
 
@@ -25,23 +25,23 @@ def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42,
 
     @jax.jit
     def loss(P_cur, I_cur):
-        return np.mean(-likelihood(P_cur, I_cur))
+        return jnp.mean(-likelihood(P_cur, I_cur))
 
     loss_grad = jax.grad(loss)
 
     @jax.jit
-    def optimize(P, I_cur, state):
-        grads = loss_grad(P, I_cur)
+    def optimize(state, P_cur, I_cur):
+        grads = loss_grad(P_cur, I_cur)
         updates, state = optim.update(grads, state)
-        P = jax.tree_util.tree_map(lambda u, p: p + u, updates, P)
-        return P, state
+        P_cur = jax.tree_util.tree_map(lambda u, p: p + u, updates, P_cur)
+        return state, P_cur
 
     while True:
         rng, key = jax.random.split(rng)
         I = sample(P, jax.random.split(key, k))
 
         y = f(I)
-        y = np.array(y)
+        y = jnp.array(y)
         info['m'] += y.shape[0]
 
         is_new = _check(I, y, info)
@@ -49,14 +49,11 @@ def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42,
         if info['m'] >= m:
             break
 
-        ind = np.argsort(y, kind='stable')
+        ind = jnp.argsort(y, kind='stable')
         ind = (ind[::-1] if is_max else ind)[:k_top]
 
         for _ in range(k_gd):
-            P, state = optimize(P, I[ind, :], state)
-
-        if i_ref is not None: # For debug only
-            _set_ref(P, info, I, ind, i_ref)
+            state, P = optimize(state, P, I[ind, :])
 
         info['t'] = tpc() - time
 
@@ -69,7 +66,7 @@ def protes_jax(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, P=None, seed=42,
 
 def _check(I, y, info):
     """Check the current batch of function values and save the improvement."""
-    ind_opt = np.argmax(y) if info['is_max'] else np.argmin(y)
+    ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
 
     i_opt_curr = I[ind_opt, :]
     y_opt_curr = y[ind_opt]
@@ -99,34 +96,26 @@ def _generate_initial(n, r, key):
     return Y
 
 
-def _get(Y, i):
-    """Compute the element of the TT-tensor Y for given multi-index i."""
-    Q = Y[0][0, i[0], :]
-    for j in range(1, len(Y)):
-        Q = np.einsum('r,rq->q', Q, Y[j][:, i[j], :])
-    return Q[0]
-
-
 def _interface_matrices(Y):
-    """Compute the "interface matrices" for the TT-tensor Y."""
+    """Compute the "interface matrices" for the TT-tensor."""
     d = len(Y)
     Z = [[]] * (d+1)
-    Z[0] = np.ones(1)
-    Z[d] = np.ones(1)
+    Z[0] = jnp.ones(1)
+    Z[d] = jnp.ones(1)
     for j in range(d-1, 0, -1):
-        Z[j] = np.sum(Y[j], axis=1) @ Z[j+1]
-        Z[j] /= np.linalg.norm(Z[j])
+        Z[j] = jnp.sum(Y[j], axis=1) @ Z[j+1]
+        Z[j] /= jnp.linalg.norm(Z[j])
     return Z
 
 
 def _likelihood(Y, I):
-    """Compute the likelihood in a multi-index I for TT-tensor Y."""
+    """Compute the likelihood in a multi-index I for TT-tensor."""
     d = len(Y)
 
     Z = _interface_matrices(Y)
 
-    G = np.einsum('riq,q->i', Y[0], Z[1])
-    G = np.abs(G)
+    G = jnp.einsum('riq,q->i', Y[0], Z[1])
+    G = jnp.abs(G)
     G /= G.sum()
 
     y = [G[I[0]]]
@@ -134,16 +123,16 @@ def _likelihood(Y, I):
     Z[0] = Y[0][0, I[0], :]
 
     for j in range(1, d):
-        G = np.einsum('r,riq,q->i', Z[j-1], Y[j], Z[j+1])
-        G = np.abs(G)
-        G /= np.sum(G)
+        G = jnp.einsum('r,riq,q->i', Z[j-1], Y[j], Z[j+1])
+        G = jnp.abs(G)
+        G /= jnp.sum(G)
 
         y.append(G[I[j]])
 
         Z[j] = Z[j-1] @ Y[j][:, I[j], :]
-        Z[j] /= np.linalg.norm(Z[j])
+        Z[j] /= jnp.linalg.norm(Z[j])
 
-    return np.sum(np.log(np.array(y)))
+    return jnp.sum(jnp.log(jnp.array(y)))
 
 
 def _log(info, log=False, log_ind=False, is_new=False, is_end=False):
@@ -156,11 +145,8 @@ def _log(info, log=False, log_ind=False, is_new=False, is_end=False):
     text += f't {info["t"]:-9.3e} | '
     text += f'y {info["y_opt"]:-11.4e}'
 
-    if len(info["p_ref_list"]) > 0:
-        text += f' | p_ref {info["p_ref_list"][-1]:-11.4e} | '
-
     if log_ind:
-        text += f' | i {"".join([str(i) for i in info["i_opt"]])}'
+        text += f' | i {" ".join([str(i) for i in info["i_opt"]])}'
 
     if is_end:
         text += ' <<< DONE'
@@ -169,39 +155,31 @@ def _log(info, log=False, log_ind=False, is_new=False, is_end=False):
 
 
 def _sample(Y, key):
-    """Generate sample according to given probability TT-tensor Y."""
+    """Generate sample according to given probability TT-tensor."""
     d = len(Y)
     keys = jax.random.split(key, d)
-    I = np.zeros(d, dtype=np.int32)
+    I = jnp.zeros(d, dtype=jnp.int32)
 
     Z = _interface_matrices(Y)
 
-    G = np.einsum('riq,q->i', Y[0], Z[1])
-    G = np.abs(G)
+    G = jnp.einsum('riq,q->i', Y[0], Z[1])
+    G = jnp.abs(G)
     G /= G.sum()
 
-    i = jax.random.choice(keys[0], np.arange(Y[0].shape[1]), p=G)
+    i = jax.random.choice(keys[0], jnp.arange(Y[0].shape[1]), p=G)
     I = I.at[0].set(i)
 
     Z[0] = Y[0][0, i, :]
 
     for j in range(1, d):
-        G = np.einsum('r,riq,q->i', Z[j-1], Y[j], Z[j+1])
-        G = np.abs(G)
-        G /= np.sum(G)
+        G = jnp.einsum('r,riq,q->i', Z[j-1], Y[j], Z[j+1])
+        G = jnp.abs(G)
+        G /= jnp.sum(G)
 
-        i = jax.random.choice(keys[j], np.arange(Y[j].shape[1]), p=G)
+        i = jax.random.choice(keys[j], jnp.arange(Y[j].shape[1]), p=G)
         I = I.at[j].set(i)
 
         Z[j] = Z[j-1] @ Y[j][:, i, :]
-        Z[j] /= np.linalg.norm(Z[j])
+        Z[j] /= jnp.linalg.norm(Z[j])
 
     return I
-
-
-def _set_ref(P, info, I, ind, i_ref=None):
-    info['m_ref_list'].append(info['m'])
-    info['p_opt_ref_list'].append(_get(P, info['i_opt']))
-    info['p_top_ref_list'].append(_get(P, I[ind[0], :]))
-    if i_ref is not None:
-        info['p_ref_list'].append(_get(P, i_ref))
