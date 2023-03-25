@@ -83,12 +83,13 @@ def _check(I, y, info):
     is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
     is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
 
-    if is_new:
-        info['i_opt'] = i_opt_curr
-        info['y_opt'] = y_opt_curr
-        info['m_opt_list'].append(info['m'])
-        info['y_opt_list'].append(y_opt_curr)
-        return True
+    info['i_opt'] = i_opt_curr if is_new else info['i_opt']
+    info['y_opt'] = y_opt_curr if is_new else info['y_opt']
+
+    info['m_opt_list'].append(info['m'])
+    info['y_opt_list'].append(y_opt_curr)
+
+    return is_new
 
 
 def _generate_initial(d, n, r, key):
