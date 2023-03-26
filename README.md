@@ -26,7 +26,7 @@ The function `f_batch` takes a set of multi-indices `I` (jax or numpy array havi
 
 Note that the code runs orders of magnitude faster if the array's mode size (`n`) is constant. If you need to optimize an array with discriminating mod sizes, then you should use the slow `protes_general` method. In this case, instead of two parameters `d` and `n`, one parameter `n` should be passed, which is a list of length `d` corresponding to the mod sizes in each dimension.
 
-> The `demo` folder contains several examples of using the PROTES method for real tasks (a simple demo can be run in the console with a command `python demo/demo_func.py`).
+> The `demo` folder contains several examples of using the PROTES method for real tasks (a simple demo can be run in the console with a command `python demo/demo_func.py`). This folder also contains a script `animation.py` for building an animation of the 2D optimization process (`numpy` and `matplotlib` libraries should be installed to run it).
 
 
 ## Parameters of the `protes` function
