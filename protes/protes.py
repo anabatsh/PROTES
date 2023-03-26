@@ -4,12 +4,12 @@ import optax
 from time import perf_counter as tpc
 
 
-def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=False, log=False, log_ind=False, info={}, P=None):
+def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=False, log=False, log_ind=False, info={}, P=None, with_info_i_opt_list=False):
     time = tpc()
     info.update({'d': d, 'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
         'is_rand': P is None, 't': 0, 'i_opt': None, 'y_opt': None,
-        'm_opt_list': [], 'y_opt_list': []})
+        'm_opt_list': [], 'i_opt_list': [], 'y_opt_list': []})
 
     rng = jax.random.PRNGKey(seed)
 
@@ -52,7 +52,7 @@ def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=F
         y = jnp.array(y)
         info['m'] += y.shape[0]
 
-        is_new = _check(I, y, info)
+        is_new = _check(I, y, info, with_info_i_opt_list)
 
         if info['m'] >= m:
             break
@@ -72,7 +72,7 @@ def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=F
     return info['i_opt'], info['y_opt']
 
 
-def _check(I, y, info):
+def _check(I, y, info, with_info_i_opt_list):
     """Check the current batch of function values and save the improvement."""
     ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
 
@@ -87,7 +87,10 @@ def _check(I, y, info):
     info['y_opt'] = y_opt_curr if is_new else info['y_opt']
 
     info['m_opt_list'].append(info['m'])
-    info['y_opt_list'].append(y_opt_curr)
+    info['y_opt_list'].append(info['y_opt'])
+
+    if with_info_i_opt_list:
+        info['i_opt_list'].append(info['i_opt'].copy())
 
     return is_new
 
