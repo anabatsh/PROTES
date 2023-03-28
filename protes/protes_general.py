@@ -78,14 +78,15 @@ def _check(P, I, y, info, with_info_i_opt_list, with_info_full):
     is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
     is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
 
-    info['i_opt'] = i_opt_curr if is_new else info['i_opt']
-    info['y_opt'] = y_opt_curr if is_new else info['y_opt']
+    if is_new:
+        info['i_opt'] = i_opt_curr
+        info['y_opt']
 
-    info['m_opt_list'].append(info['m'])
-    info['y_opt_list'].append(info['y_opt'])
+        info['m_opt_list'].append(info['m'])
+        info['y_opt_list'].append(info['y_opt'])
 
-    if with_info_i_opt_list or with_info_full:
-        info['i_opt_list'].append(info['i_opt'].copy())
+        if with_info_i_opt_list or with_info_full:
+            info['i_opt_list'].append(info['i_opt'].copy())
 
     if with_info_full:
         info['P_list'].append([G.copy() for G in P])

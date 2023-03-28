@@ -55,6 +55,7 @@ def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=F
         is_new = _check(I, y, info, with_info_i_opt_list)
 
         if info['m'] >= m:
+            info['t'] = tpc() - time
             break
 
         ind = jnp.argsort(y, kind='stable')
@@ -83,14 +84,15 @@ def _check(I, y, info, with_info_i_opt_list):
     is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
     is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
 
-    info['i_opt'] = i_opt_curr if is_new else info['i_opt']
-    info['y_opt'] = y_opt_curr if is_new else info['y_opt']
+    if is_new:
+        info['i_opt'] = i_opt_curr
+        info['y_opt']
 
-    info['m_opt_list'].append(info['m'])
-    info['y_opt_list'].append(info['y_opt'])
+        info['m_opt_list'].append(info['m'])
+        info['y_opt_list'].append(info['y_opt'])
 
-    if with_info_i_opt_list:
-        info['i_opt_list'].append(info['i_opt'].copy())
+        if with_info_i_opt_list:
+            info['i_opt_list'].append(info['i_opt'].copy())
 
     return is_new
 
