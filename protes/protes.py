@@ -86,7 +86,7 @@ def _check(I, y, info, with_info_i_opt_list):
 
     if is_new:
         info['i_opt'] = i_opt_curr
-        info['y_opt']
+        info['y_opt'] = y_opt_curr
 
         info['m_opt_list'].append(info['m'])
         info['y_opt_list'].append(info['y_opt'])
