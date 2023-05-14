@@ -1,0 +1,22 @@
+import numpy as np
+from opti import Opti
+
+
+try:
+    import nevergrad as ng
+    with_ng = True
+except Exception as e:
+    with_ng = False
+
+
+class OptiPSO(Opti):
+    def __init__(self, name='pso', *args, **kwargs):
+        super().__init__(name, *args, **kwargs)
+
+    def _init(self):
+        if not with_ng:
+            self.err = 'Need "nevergrad" module'
+            return
+
+    def _optimize(self):
+        self._optimize_ng(ng.optimizers.PSO)
