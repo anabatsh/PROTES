@@ -1,3 +1,7 @@
-teneva_bm==0.1.0
+gekko==1.0.6
+networkx==3.0
 nevergrad==0.6.0
+qubogen==0.1.1
+teneva==0.14.1
+teneva_bm==0.1.0
 ttopt==0.5.0
