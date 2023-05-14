@@ -40,17 +40,17 @@ def demo():
     discretization of an analytic function.
 
     The result in console should looks like this (note that the exact minimum
-    of this function is y = 0 and is reached at the origin of coordinates):
+    of this function is y = 0 and it is reached at the origin of coordinates):
 
-    protes > m 5.0e+01 | t 3.338e+00 | y  1.5434e+01
-    protes > m 1.2e+03 | t 5.441e+00 | y  1.5239e+01
-    protes > m 2.2e+03 | t 7.157e+00 | y  1.4116e+01
-    protes > m 3.2e+03 | t 8.809e+00 | y  1.3057e+01
-    protes > m 4.2e+03 | t 1.043e+01 | y  8.4726e+00
-    protes > m 5.8e+03 | t 1.322e+01 | y  0.0000e+00
-    protes > m 1.0e+04 | t 2.049e+01 | y  0.0000e+00 <<< DONE
+    protes > m 5.0e+01 | t 3.313e+00 | y  1.5434e+01
+    protes > m 1.2e+03 | t 5.951e+00 | y  1.5239e+01
+    protes > m 2.2e+03 | t 8.097e+00 | y  1.4116e+01
+    protes > m 3.2e+03 | t 1.016e+01 | y  1.3057e+01
+    protes > m 4.2e+03 | t 1.215e+01 | y  8.4726e+00
+    protes > m 5.8e+03 | t 1.556e+01 | y  0.0000e+00
+    protes > m 1.0e+04 | t 2.470e+01 | y  0.0000e+00 <<< DONE
 
-    RESULT | y opt = 0.00000e+00 | time = 20.501465051
+    RESULT | y opt = 0.00000e+00 | time =    24.7127
 
     """
     d = 7                # Dimension
@@ -60,7 +60,7 @@ def demo():
 
     t = tpc()
     i_opt, y_opt = protes(f, d, n, m, log=True)
-    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t}')
+    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t:-10.4f}')
 
 
 if __name__ == '__main__':

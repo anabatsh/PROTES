@@ -39,34 +39,29 @@ def demo():
     We will solve the binary knapsack problem with fixed weights wi in [5, 20],
     profits pi in [50, 100] (i = 1, 2, . . . , d) and the maximum capacity
     C = 1000. It is from work (Dong et al., 2021) (problem k3; d = 50), where
-    anglemodulated bat algorithm (AMBA) algorithm was proposed for
-    high-dimensional binary optimization problems with engineering application
-    to antenna topology optimization. Note that ths problem has known exact
-    solution y_min = -3103.
+    anglemodulated bat algorithm (AMBA) was proposed for high-dimensional
+    binary optimization problems with engineering application to antenna
+    topology optimization. Note that ths problem has known exact solution -3103.
 
     The result in console should looks like this:
 
-    protes > m 5.0e+01 | t 3.371e+00 | y -2.5310e+03
-    protes > m 1.0e+02 | t 3.495e+00 | y -2.7350e+03
-    protes > m 2.5e+02 | t 3.827e+00 | y -2.8120e+03
-    protes > m 5.0e+02 | t 4.367e+00 | y -2.8650e+03
-    protes > m 2.0e+03 | t 7.821e+00 | y -2.9390e+03
-    protes > m 3.2e+03 | t 1.044e+01 | y -2.9950e+03
-    protes > m 3.7e+03 | t 1.152e+01 | y -3.0090e+03
-    protes > m 4.4e+03 | t 1.302e+01 | y -3.0110e+03
-    protes > m 5.0e+03 | t 1.422e+01 | y -3.0410e+03
-    protes > m 6.2e+03 | t 1.699e+01 | y -3.0510e+03
-    protes > m 6.6e+03 | t 1.765e+01 | y -3.0610e+03
-    protes > m 7.4e+03 | t 1.966e+01 | y -3.0630e+03
-    protes > m 8.0e+03 | t 2.088e+01 | y -3.0660e+03
-    protes > m 8.2e+03 | t 2.120e+01 | y -3.0740e+03
-    protes > m 8.2e+03 | t 2.144e+01 | y -3.0830e+03
-    protes > m 8.5e+03 | t 2.201e+01 | y -3.0840e+03
-    protes > m 8.6e+03 | t 2.212e+01 | y -3.0950e+03
-    protes > m 1.1e+04 | t 2.643e+01 | y -3.0980e+03
-    protes > m 2.0e+04 | t 4.734e+01 | y -3.0980e+03 <<< DONE
+    protes > m 5.0e+01 | t 3.038e+00 | y -2.5310e+03
+    protes > m 1.0e+02 | t 3.169e+00 | y -2.7350e+03
+    protes > m 2.5e+02 | t 3.601e+00 | y -2.8120e+03
+    protes > m 5.0e+02 | t 4.231e+00 | y -2.8650e+03
+    protes > m 2.0e+03 | t 8.118e+00 | y -2.9390e+03
+    protes > m 3.2e+03 | t 1.120e+01 | y -2.9950e+03
+    protes > m 3.7e+03 | t 1.249e+01 | y -3.0090e+03
+    protes > m 4.6e+03 | t 1.474e+01 | y -3.0190e+03
+    protes > m 4.7e+03 | t 1.498e+01 | y -3.0310e+03
+    protes > m 5.0e+03 | t 1.559e+01 | y -3.0410e+03
+    protes > m 6.0e+03 | t 1.823e+01 | y -3.0730e+03
+    protes > m 7.1e+03 | t 2.097e+01 | y -3.0860e+03
+    protes > m 9.2e+03 | t 2.618e+01 | y -3.0920e+03
+    protes > m 1.2e+04 | t 3.336e+01 | y -3.0950e+03
+    protes > m 2.0e+04 | t 5.285e+01 | y -3.0950e+03 <<< DONE
 
-    RESULT | y opt = -3.09800e+03 | time = 47.350111849
+    RESULT | y opt = -3.09500e+03 | time =    52.8616
 
     """
     d, n, f = func_build() # Target function, and array shape
@@ -74,7 +69,7 @@ def demo():
 
     t = tpc()
     i_opt, y_opt = protes(f, d, n, m, log=True)
-    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t}')
+    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t:-10.4f}')
 
 
 if __name__ == '__main__':
