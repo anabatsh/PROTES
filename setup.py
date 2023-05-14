@@ -14,7 +14,7 @@ def find_packages(package, basepath):
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-desc = 'Method PROTES (PRobability Optimizer with TEnsor Sampling) for optimization of the multidimensional arrays and  discretized multivariable functions based on the tensor train (TT) format'
+desc = 'Method PROTES (PRobability Optimizer with TEnsor Sampling) for derivative-free optimization of the multidimensional arrays and discretized multivariate functions based on the tensor train (TT) format'
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     desc_long = f.read()
 
@@ -25,10 +25,9 @@ with open(os.path.join(here, 'protes/__init__.py'), encoding='utf-8') as f:
     version = version.group(1)
 
 
-# with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
-#     requirements = f.read().split('\n')
-#     requirements = [r for r in requirements if len(r) >= 3]
-requirements = []
+with open(os.path.join(here, 'requirements.txt'), encoding='utf-8') as f:
+    requirements = f.read().split('\n')
+    requirements = [r for r in requirements if len(r) >= 3]
 
 
 setup_args = dict(
@@ -51,14 +50,12 @@ setup_args = dict(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3 :: Only',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
     keywords='Derivative-free optimization multidimensional optimization low-rank representation tensor train format',
     packages=find_packages('protes', './protes/'),
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     project_urls={
         'Source': 'https://github.com/anabatsh/PROTES',
     },
