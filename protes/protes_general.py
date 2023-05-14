@@ -4,7 +4,9 @@ import optax
 from time import perf_counter as tpc
 
 
-def protes_general(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_max=False, log=False, log_ind=False, info={}, P=None, with_info_i_opt_list=False, with_info_full=False):
+def protes_general(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42,
+                   is_max=False, log=False, log_ind=False, info={}, P=None,
+                   with_info_i_opt_list=False, with_info_full=False):
     time = tpc()
     info.update({'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
@@ -50,6 +52,7 @@ def protes_general(f, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42, is_
         is_new = _check(P, I, y, info, with_info_i_opt_list, with_info_full)
 
         if info['m'] >= m:
+            info['t'] = tpc() - time
             break
 
         ind = jnp.argsort(y, kind='stable')
@@ -82,6 +85,7 @@ def _check(P, I, y, info, with_info_i_opt_list, with_info_full):
         info['i_opt'] = i_opt_curr
         info['y_opt'] = y_opt_curr
 
+    if is_new or with_info_full:
         info['m_opt_list'].append(info['m'])
         info['y_opt_list'].append(info['y_opt'])
 
