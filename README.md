@@ -103,3 +103,8 @@ If you find our approach and/or code useful in your research, please consider ci
 ```
 
 > ✭ 🚂 The stars that you give to **PROTES**, motivate us to develop faster and add new interesting features to the code 😃
+
+
+## License
+
+If you plan to use this software for commercial purposes, please contact [Ivan Oseledets](https://github.com/oseledets) for details. There are no restrictions on the use for scientific purposes when citing 😊
