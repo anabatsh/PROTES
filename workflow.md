@@ -55,11 +55,11 @@
     clear && python demo/demo_qubo.py
     ```
 
-3. Update version (like `0.2.X`) in the file `protes/__init__.py`
+3. Update version (like `0.3.X`) in the file `protes/__init__.py`
 
-    > For breaking changes we should increase the major index (`2`), for non-breaking changes we should increase the minor index (`X`)
+    > For breaking changes we should increase the major index (`3`), for non-breaking changes we should increase the minor index (`X`)
 
-4. Do commit `Update version (0.2.X)` and push
+4. Do commit `Update version (0.3.X)` and push
 
 5. Upload new version to `pypi` (login: AndreiChertkov)
     ```bash
