@@ -45,31 +45,30 @@ def demo():
 
     The result in console should looks like this:
 
-    protes > m 5.0e+01 | t 3.038e+00 | y -2.5310e+03
-    protes > m 1.0e+02 | t 3.169e+00 | y -2.7350e+03
-    protes > m 2.5e+02 | t 3.601e+00 | y -2.8120e+03
-    protes > m 5.0e+02 | t 4.231e+00 | y -2.8650e+03
-    protes > m 2.0e+03 | t 8.118e+00 | y -2.9390e+03
-    protes > m 3.2e+03 | t 1.120e+01 | y -2.9950e+03
-    protes > m 3.7e+03 | t 1.249e+01 | y -3.0090e+03
-    protes > m 4.6e+03 | t 1.474e+01 | y -3.0190e+03
-    protes > m 4.7e+03 | t 1.498e+01 | y -3.0310e+03
-    protes > m 5.0e+03 | t 1.559e+01 | y -3.0410e+03
-    protes > m 6.0e+03 | t 1.823e+01 | y -3.0730e+03
-    protes > m 7.1e+03 | t 2.097e+01 | y -3.0860e+03
-    protes > m 9.2e+03 | t 2.618e+01 | y -3.0920e+03
-    protes > m 1.2e+04 | t 3.336e+01 | y -3.0950e+03
-    protes > m 2.0e+04 | t 5.285e+01 | y -3.0950e+03 <<< DONE
+    protes > m 1.0e+02 | t 3.021e+00 | y -2.7560e+03
+    protes > m 3.0e+02 | t 3.051e+00 | y -2.8150e+03
+    protes > m 4.0e+02 | t 3.061e+00 | y -2.8350e+03
+    protes > m 8.0e+02 | t 3.099e+00 | y -2.8700e+03
+    protes > m 1.0e+03 | t 3.116e+00 | y -2.8850e+03
+    protes > m 1.1e+03 | t 3.124e+00 | y -2.9070e+03
+    protes > m 1.3e+03 | t 3.139e+00 | y -2.9350e+03
+    protes > m 1.4e+03 | t 3.147e+00 | y -2.9690e+03
+    protes > m 1.7e+03 | t 3.171e+00 | y -2.9990e+03
+    protes > m 2.0e+03 | t 3.194e+00 | y -3.0030e+03
+    protes > m 2.2e+03 | t 3.210e+00 | y -3.0700e+03
+    protes > m 6.9e+03 | t 3.574e+00 | y -3.0720e+03
+    protes > m 8.5e+03 | t 3.701e+00 | y -3.0750e+03
+    protes > m 1.0e+04 | t 3.816e+00 | y -3.0750e+03 <<< DONE
 
-    RESULT | y opt = -3.09500e+03 | time =    52.8616
+    RESULT | y opt = -3.0750e+03 | time =     3.8277
 
     """
     d, n, f = func_build() # Target function, and array shape
-    m = int(2.E+4)         # Number of requests to the objective function
+    m = int(1.E+4)         # Number of requests to the objective function
 
     t = tpc()
     i_opt, y_opt = protes(f, d, n, m, log=True)
-    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t:-10.4f}')
+    print(f'\nRESULT | y opt = {y_opt:-11.4e} | time = {tpc()-t:-10.4f}')
 
 
 if __name__ == '__main__':

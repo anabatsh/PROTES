@@ -42,15 +42,18 @@ def demo():
     The result in console should looks like this (note that the exact minimum
     of this function is y = 0 and it is reached at the origin of coordinates):
 
-    protes > m 5.0e+01 | t 3.313e+00 | y  1.5434e+01
-    protes > m 1.2e+03 | t 5.951e+00 | y  1.5239e+01
-    protes > m 2.2e+03 | t 8.097e+00 | y  1.4116e+01
-    protes > m 3.2e+03 | t 1.016e+01 | y  1.3057e+01
-    protes > m 4.2e+03 | t 1.215e+01 | y  8.4726e+00
-    protes > m 5.8e+03 | t 1.556e+01 | y  0.0000e+00
-    protes > m 1.0e+04 | t 2.470e+01 | y  0.0000e+00 <<< DONE
+    protes > m 1.0e+02 | t 3.190e+00 | y  2.0214e+01
+    protes > m 2.0e+02 | t 3.203e+00 | y  1.8211e+01
+    protes > m 5.0e+02 | t 3.216e+00 | y  1.8174e+01
+    protes > m 6.0e+02 | t 3.220e+00 | y  1.7491e+01
+    protes > m 7.0e+02 | t 3.224e+00 | y  1.7078e+01
+    protes > m 8.0e+02 | t 3.228e+00 | y  1.6180e+01
+    protes > m 1.1e+03 | t 3.238e+00 | y  1.4116e+01
+    protes > m 1.4e+03 | t 3.250e+00 | y  8.4726e+00
+    protes > m 2.7e+03 | t 3.293e+00 | y  0.0000e+00
+    protes > m 1.0e+04 | t 3.534e+00 | y  0.0000e+00 <<< DONE
 
-    RESULT | y opt = 0.00000e+00 | time =    24.7127
+    RESULT | y opt =  0.0000e+00 | time =     3.5459
 
     """
     d = 7                # Dimension
@@ -60,7 +63,7 @@ def demo():
 
     t = tpc()
     i_opt, y_opt = protes(f, d, n, m, log=True)
-    print(f'\nRESULT | y opt = {y_opt:-11.5e} | time = {tpc()-t:-10.4f}')
+    print(f'\nRESULT | y opt = {y_opt:-11.4e} | time = {tpc()-t:-10.4f}')
 
 
 if __name__ == '__main__':
