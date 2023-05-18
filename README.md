@@ -34,7 +34,7 @@ Please, see also:
 
 - The `demo` folder contains several examples of using the PROTES method for real tasks (a simple demo can be run in the console with a command `python demo/demo_func.py` and `python demo/demo_qubo.py`).
 
-- The `calc` folder contains test runs of the PROTES method for various model problems and compare it with other optimization methods (additional dependencies from the `requirements_calc.txt` file should be installed to run the related scripts).
+- The `calc` folder contains test runs of the PROTES method for various model problems (20 benchmarks) and compare it with other optimization methods (7 baselines). Additional dependencies from the `requirements_calc.txt` file should be installed to run the related script `calc/calc.py`.
 
 - The `animation` folder contains a script `animate.py` for building an animation of the 2D optimization process.
 
@@ -50,12 +50,12 @@ Please, see also:
 
 **Optional arguments**:
 
-- `k` (int) - the batch size for optimization (the default value is `50`).
-- `k_top` (int) - number of selected candidates in the batch (it should be `< k`; the default value is `5`).
-- `k_gd` (int) - number of gradient lifting iterations for each batch (the default value is `100`).
-- `lr` (float): learning rate for gradient lifting iterations (the default value is `1.E-4`).
+- `k` (int) - the batch size for optimization (the default value is `100`).
+- `k_top` (int) - number of selected candidates in the batch (it should be `< k`; the default value is `10`).
+- `k_gd` (int) - number of gradient lifting iterations for each batch (the default value is `1`).
+- `lr` (float): learning rate for gradient lifting iterations (the default value is `5.E-2`).
 - `r` (int): TT-rank of the constructed probability TT-tensor (the default value is `5`).
-- `seed` (int): parameter for jax random generator (the default value is `42`).
+- `seed` (int): parameter for jax random generator (the default value is `0`).
 - `is_max` (bool): if flag is set, then maximization rather than minimization will be performed.
 - `log` (bool): if flag is set, then the information about the progress of the algorithm will be printed after each improvement of the optimization result and at the end of the algorithm's work.
 - `log_ind` (bool): if flag is set and `log` is True, then the current optimal multi-index will be printed every step.

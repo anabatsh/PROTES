@@ -4,7 +4,7 @@ import optax
 from time import perf_counter as tpc
 
 
-def protes(f, d, n, m, k=50, k_top=5, k_gd=100, lr=1.E-4, r=5, seed=42,
+def protes(f, d, n, m, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
            is_max=False, log=False, log_ind=False, info={}, P=None,
            with_info_i_opt_list=False, with_info_full=False):
     time = tpc()

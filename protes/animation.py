@@ -127,7 +127,7 @@ def animate(f, a, b, n, info, i_opt_real=None, fpath=None):
         anim.show()
 
 
-def animation(f, a, b, n=501, m=int(1.E+4), k=50, k_top=5, k_gd=100, lr=1.E-4,
+def animation(f, a, b, n=501, m=int(1.E+4), k=100, k_top=10, k_gd=1, lr=5.E-2,
               i_opt_real=None, fpath='animation/animation.gif', is_max=False):
     """Animation of the PROTES work for the 2D case."""
     print('\n... start optimization ...')
