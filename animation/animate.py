@@ -79,21 +79,21 @@ def animate(task):
     fpath = os.path.dirname(__file__) + f'/protes_{task}.gif'
 
     if task == 'ackley':
-        n = 501
+        n = 101
         f, a, b, i_opt_real = func_build_ackley(np.array([n, n]))
-        animation(f, a, b, n, m=int(1.E+4), k=50, k_top=5, k_gd=100, lr=1.E-4,
+        animation(f, a, b, n, m=int(2.E+2), k=25, k_top=5, k_gd=10, lr=1.E-2,
             i_opt_real=i_opt_real, fpath=fpath)
 
     elif task == 'simple':
         n = 101
         f, a, b, i_opt_real = func_build_simple(np.array([n, n]))
-        animation(f, a, b, n, m=int(1.E+3), k=25, k_top=25, k_gd=10, lr=1.E-3,
+        animation(f, a, b, n, m=int(1.1E+3), k=100, k_top=10, k_gd=1, lr=5.E-2,
             i_opt_real=i_opt_real, fpath=fpath, is_max=True)
 
     elif task == 'two_optima':
         n = 101
         f, a, b, i_opt_real = func_build_two_optima(np.array([n, n]))
-        animation(f, a, b, n, m=int(1.E+3), k=25, k_top=5, k_gd=100, lr=1.E-2,
+        animation(f, a, b, n, m=int(5.E+2), k=25, k_top=1, k_gd=1, lr=1.E-1,
             i_opt_real=i_opt_real, fpath=fpath, is_max=True)
 
     else:
