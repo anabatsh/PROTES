@@ -1,0 +1,445 @@
+------------------------------------------------------------------------------
+BM: P-01                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Ackley function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See https://www.sfu.ca/~ssurjano/ackley.html for details.
+    See also the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("1. Ackley 1 Function"; Continuous, Differentiable, Non-separable,
+    Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 3.276e+00 | y 1.28352e+01 <<< DONE
+BS-1         > m 1.0e+04 | t 5.814e-02 | y 1.28352e+01 <<< DONE
+BS-2         > m 9.2e+03 | t 1.147e-01 | y 1.28352e+01 <<< DONE
+BS-3         > m 1.0e+04 | t 2.345e+01 | y 1.28352e+01 <<< DONE
+BS-4         > m 1.0e+04 | t 2.531e+01 | y 1.28352e+01 <<< DONE
+BS-5         > m 1.0e+04 | t 2.278e+01 | y 2.07313e+01 <<< DONE
+BS-6         > m 1.0e+04 | t 2.203e+01 | y 1.28352e+01 <<< DONE
+BS-7         > m 1.0e+04 | t 6.723e+01 | y 1.28352e+01 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-02                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Alpine function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("6. Alpine 1 Function"; Continuous, Non-Differentiable, Separable,
+    Non-Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.247e+00 | y 6.52990e+00 <<< DONE
+BS-1         > m 1.0e+04 | t 4.708e-02 | y 6.52990e+00 <<< DONE
+BS-2         > m 9.2e+03 | t 5.551e-02 | y 6.52990e+00 <<< DONE
+BS-3         > m 1.0e+04 | t 2.242e+01 | y 6.86759e+00 <<< DONE
+BS-4         > m 1.0e+04 | t 2.868e+01 | y 6.80221e+00 <<< DONE
+BS-5         > m 1.0e+04 | t 2.060e+01 | y 1.49961e+01 <<< DONE
+BS-6         > m 1.0e+04 | t 1.978e+01 | y 7.45937e+00 <<< DONE
+BS-7         > m 1.0e+04 | t 7.701e+01 | y 6.80221e+00 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-03                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min = -1.00000e+00 |
+
+  [ Analytical Exponential function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("54. Exponential Function"; Continuous, Differentiable,
+    Non-Separable, Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.364e+00 | y -9.44388e-01 <<< DONE
+BS-1         > m 1.0e+04 | t 4.685e-02 | y -9.44388e-01 <<< DONE
+BS-2         > m 3.6e+03 | t 3.219e-02 | y -9.44388e-01 <<< DONE
+BS-3         > m 1.0e+04 | t 2.611e+01 | y -9.44388e-01 <<< DONE
+BS-4         > m 1.0e+04 | t 2.362e+01 | y -9.44388e-01 <<< DONE
+BS-5         > m 1.0e+04 | t 2.055e+01 | y -3.46293e-01 <<< DONE
+BS-6         > m 1.0e+04 | t 1.971e+01 | y -9.44388e-01 <<< DONE
+BS-7         > m 1.0e+04 | t 6.562e+01 | y -9.44388e-01 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-04                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Griewank function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See https://www.sfu.ca/~ssurjano/griewank.html for details.
+    See also the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("59. Griewank Function"; Continuous, Differentiable, Non-Separable,
+    Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.324e+00 | y 1.28609e+00 <<< DONE
+BS-1         > m 1.0e+04 | t 4.766e-02 | y 1.28609e+00 <<< DONE
+BS-2         > m 9.9e+03 | t 6.891e-02 | y 1.28609e+00 <<< DONE
+BS-3         > m 1.0e+04 | t 2.204e+01 | y 1.28609e+00 <<< DONE
+BS-4         > m 1.0e+04 | t 2.404e+01 | y 1.28609e+00 <<< DONE
+BS-5         > m 1.0e+04 | t 2.067e+01 | y 6.30229e+00 <<< DONE
+BS-6         > m 1.0e+04 | t 1.990e+01 | y 1.28609e+00 <<< DONE
+BS-7         > m 1.0e+04 | t 6.551e+01 | y 1.28609e+00 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-05                                 | DIMS =     7 | <MODE SIZE> =   16.0
+
+  [ Analytical Michalewicz function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See https://www.sfu.ca/~ssurjano/michal.html for details.
+    See also Charlie Vanaret, Jean-Baptiste Gotteland, Nicolas Durand,
+    Jean-Marc Alliot. "Certified global minima for a benchmark of difficult
+    optimization problems". arXiv preprint arXiv:2003.09867 2020
+    (the function has d! local minima, and it is multimodal).
+    Note that the value of the global minimum is known only for the case of
+    dimensions 2, 5, and 10. In this cases, only the corresponding value of
+    the function is known, but not the argument. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.335e+00 | y -3.68374e+00 <<< DONE
+BS-1         > m 1.0e+04 | t 5.263e-02 | y -3.68374e+00 <<< DONE
+BS-2         > m 9.8e+03 | t 6.289e-02 | y -3.68374e+00 <<< DONE
+BS-3         > m 1.0e+04 | t 2.647e+01 | y -2.58248e+00 <<< DONE
+BS-4         > m 1.0e+04 | t 2.656e+01 | y -3.03940e+00 <<< DONE
+BS-5         > m 1.0e+04 | t 2.078e+01 | y -1.76383e+00 <<< DONE
+BS-6         > m 1.0e+04 | t 2.010e+01 | y -1.19286e+00 <<< DONE
+BS-7         > m 1.0e+04 | t 7.842e+01 | y -3.68374e+00 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-06                                 | DIMS =     7 | <MODE SIZE> =   16.0
+
+  [ Analytical Piston function (continuous).
+    The dimension is "7" and the mode size may be any (default is n=15).
+    See Vitaly Zankin, Gleb Ryzhakov, Ivan Oseledets. "Gradient descent
+    based D-optimal design for the least-squares polynomial approximation".
+    arXiv preprint arXiv:1806.06631 2018 for details. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.339e+00 | y 1.16017e-01 <<< DONE
+BS-1         > m 1.0e+04 | t 4.930e-02 | y 1.16009e-01 <<< DONE
+BS-2         > m 9.9e+03 | t 1.022e-01 | y 1.16428e-01 <<< DONE
+BS-3         > m 1.0e+04 | t 2.351e+01 | y 1.16009e-01 <<< DONE
+BS-4         > m 1.0e+04 | t 2.832e+01 | y 1.16439e-01 <<< DONE
+BS-5         > m 1.0e+04 | t 2.242e+01 | y 1.33738e-01 <<< DONE
+BS-6         > m 1.0e+04 | t 2.158e+01 | y 4.17770e-01 <<< DONE
+BS-7         > m 1.0e+04 | t 8.410e+01 | y 1.16009e-01 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-07                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Qing function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("98. Qing Function"; Continuous, Differentiable, Separable
+    Scalable, Multimodal). Note that we limit this function to the
+    [0, 500] domain to make sure it has a single global minimum. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.250e+00 | y 6.15931e+06 <<< DONE
+BS-1         > m 1.0e+04 | t 5.689e-02 | y 6.15931e+06 <<< DONE
+BS-2         > m 3.6e+03 | t 3.437e-02 | y 6.15931e+06 <<< DONE
+BS-3         > m 1.0e+04 | t 2.672e+01 | y 6.31788e+06 <<< DONE
+BS-4         > m 1.0e+04 | t 3.495e+01 | y 1.69307e+07 <<< DONE
+BS-5         > m 1.0e+04 | t 2.166e+01 | y 2.24000e+10 <<< DONE
+BS-6         > m 1.0e+04 | t 2.126e+01 | y 3.10565e+08 <<< DONE
+BS-7         > m 1.0e+04 | t 8.354e+01 | y 6.15931e+06 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-08                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Rastrigin function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See https://www.sfu.ca/~ssurjano/rastr.html for details.
+    See also the work Johannes M Dieterich, Bernd Hartke. "Empirical review
+    of standard benchmark functions using evolutionary global optimization".
+    Applied Mathematics 2012; 3:1552-1564. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.255e+00 | y 5.96881e+01 <<< DONE
+BS-1         > m 1.0e+04 | t 4.751e-02 | y 5.96881e+01 <<< DONE
+BS-2         > m 9.9e+03 | t 7.108e-02 | y 5.96881e+01 <<< DONE
+BS-3         > m 1.0e+04 | t 2.270e+01 | y 5.96881e+01 <<< DONE
+BS-4         > m 1.0e+04 | t 2.403e+01 | y 5.96881e+01 <<< DONE
+BS-5         > m 1.0e+04 | t 2.129e+01 | y 1.20911e+02 <<< DONE
+BS-6         > m 1.0e+04 | t 2.028e+01 | y 1.04782e+02 <<< DONE
+BS-7         > m 1.0e+04 | t 6.547e+01 | y 5.96881e+01 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-09                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Schaffer function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("136. Schaffer F6 Function"; Continuous, Differentiable,
+    Non-Separable, Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.310e+00 | y 2.72448e+00 <<< DONE
+BS-1         > m 1.0e+04 | t 6.135e-02 | y 2.72448e+00 <<< DONE
+BS-2         > m 9.0e+03 | t 1.146e-01 | y 2.72448e+00 <<< DONE
+BS-3         > m 1.0e+04 | t 2.298e+01 | y 2.95936e+00 <<< DONE
+BS-4         > m 1.0e+04 | t 2.411e+01 | y 2.72448e+00 <<< DONE
+BS-5         > m 1.0e+04 | t 2.114e+01 | y 2.88599e+00 <<< DONE
+BS-6         > m 1.0e+04 | t 2.056e+01 | y 3.35606e+00 <<< DONE
+BS-7         > m 1.0e+04 | t 6.555e+01 | y 2.72448e+00 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-10                                 | DIMS =     7 | <MODE SIZE> =   16.0
+                                   y_min =  0.00000e+00 |
+
+  [ Analytical Schwefel function (continuous).
+    The dimension and mode size may be any (default are d=50, n=15).
+    See https://www.sfu.ca/~ssurjano/schwef.html for details.
+    See also the work Momin Jamil, Xin-She Yang. "A literature survey of
+    benchmark functions for global optimization problems". Journal of
+    Mathematical Modelling and Numerical Optimisation 2013; 4:150-194
+    ("128. Schwefel 2.26 Function"; Continuous, Differentiable,
+    Separable, Scalable, Multimodal). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.353e+00 | y -8.70080e+02 <<< DONE
+BS-1         > m 1.0e+04 | t 5.389e-02 | y -8.70080e+02 <<< DONE
+BS-2         > m 3.6e+03 | t 3.432e-02 | y -8.70080e+02 <<< DONE
+BS-3         > m 1.0e+04 | t 2.356e+01 | y -6.10372e+02 <<< DONE
+BS-4         > m 1.0e+04 | t 3.366e+01 | y -6.90176e+02 <<< DONE
+BS-5         > m 1.0e+04 | t 2.125e+01 | y 7.01380e+02 <<< DONE
+BS-6         > m 1.0e+04 | t 2.261e+01 | y 2.57792e+03 <<< DONE
+BS-7         > m 1.0e+04 | t 8.194e+01 | y -8.49858e+02 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-11                                 | DIMS =    50 | <MODE SIZE> =    2.0
+
+  [ Quadratic unconstrained binary optimization (QUBO) Max-Cut problem
+    represented as a discrete function.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "networkx==3.0" and "qubogen==0.1.1" libraries. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.700e+00 | y -3.59000e+02 <<< DONE
+BS-1         > m 1.0e+04 | t 6.212e-02 | y -3.47000e+02 <<< DONE
+BS-2         > m 1.0e+04 | t 4.354e-01 | y -3.44000e+02 <<< DONE
+BS-3         > m 1.0e+04 | t 1.632e+01 | y -3.25000e+02 <<< DONE
+BS-4         > m 1.0e+04 | t 2.254e+01 | y -3.40000e+02 <<< DONE
+BS-5         > m 1.0e+04 | t 1.765e+01 | y -3.18000e+02 <<< DONE
+BS-6         > m 1.0e+04 | t 1.798e+01 | y -3.34000e+02 <<< DONE
+BS-7         > m 1.0e+04 | t 6.761e+01 | y -3.62000e+02 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-12                                 | DIMS =    50 | <MODE SIZE> =    2.0
+
+  [ Quadratic unconstrained binary optimization (QUBO) Minimum Vertex Cover
+    (MVC) problem represented as a discrete function.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "networkx==3.0" and "qubogen==0.1.1" libraries. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.163e+00 | y -5.92700e+03 <<< DONE
+BS-1         > m 1.0e+04 | t 5.267e-02 | y -5.92600e+03 <<< DONE
+BS-2         > m 9.9e+03 | t 3.641e-01 | y -5.92500e+03 <<< DONE
+BS-3         > m 1.0e+04 | t 1.706e+01 | y -5.58300e+03 <<< DONE
+BS-4         > m 1.0e+04 | t 2.195e+01 | y -5.87500e+03 <<< DONE
+BS-5         > m 1.0e+04 | t 1.728e+01 | y -5.30700e+03 <<< DONE
+BS-6         > m 1.0e+04 | t 1.677e+01 | y -5.92400e+03 <<< DONE
+BS-7         > m 1.0e+04 | t 7.974e+01 | y -5.92600e+03 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-13                                 | DIMS =    50 | <MODE SIZE> =    2.0
+
+  [ Quadratic unconstrained binary optimization (QUBO) knapsack problem
+    represented as a discrete function.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "qubogen==0.1.1" library. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.292e+00 | y -3.07179e+00 <<< DONE
+BS-1         > m 1.0e+04 | t 4.898e-02 | y -3.03344e+00 <<< DONE
+BS-2         > m 1.0e+04 | t 3.361e-01 | y -2.76059e+00 <<< DONE
+BS-3         > m 1.0e+04 | t 1.878e+01 | y 0.00000e+00 <<< DONE
+BS-4         > m 1.0e+04 | t 2.109e+01 | y 1.48768e+01 <<< DONE
+BS-5         > m 1.0e+04 | t 2.051e+01 | y 2.82718e+02 <<< DONE
+BS-6         > m 1.0e+04 | t 1.797e+01 | y -2.92970e+00 <<< DONE
+BS-7         > m 1.0e+04 | t 7.722e+01 | y -2.95932e+00 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-14                                 | DIMS =    50 | <MODE SIZE> =    2.0
+                                   y_min = -3.10300e+03 |
+
+  [ Binary knapsack problem with fixed weights wi in [5, 20], profits pi in
+    [50, 100] (i = 1, 2, . . . , d) and the maximum capacity C = 1000. It is
+    from work (Dong et al., 2021) (problem k3; d = 50), where anglemodulated
+    bat algorithm (AMBA) algorithm was proposed for high-dimensional binary
+    optimization problems with application to antenna topology optimization.
+    The dimension should be 50, and the mode size should be 2. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 2.331e+00 | y -3.07900e+03 <<< DONE
+BS-1         > m 1.0e+04 | t 1.311e-01 | y -2.80000e+03 <<< DONE
+BS-2         > m 1.0e+04 | t 3.976e-01 | y -3.00900e+03 <<< DONE
+BS-3         > m 1.0e+04 | t 1.641e+01 | y -2.59700e+03 <<< DONE
+BS-4         > m 1.0e+04 | t 2.742e+01 | y -2.95500e+03 <<< DONE
+BS-5         > m 1.0e+04 | t 1.761e+01 | y -2.66100e+03 <<< DONE
+BS-6         > m 1.0e+04 | t 1.759e+01 | y -3.04800e+03 <<< DONE
+BS-7         > m 1.0e+04 | t 7.477e+01 | y -2.97300e+03 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-15                                 | DIMS =    25 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i", where
+    "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 5.136e+02 | y 6.67640e-03 <<< DONE
+BS-1         > m 1.0e+04 | t 1.256e+03 | y 7.40673e-03 <<< DONE
+BS-2         > m 9.9e+03 | t 1.839e+03 | y 2.32799e-02 <<< DONE
+BS-3         > m 1.0e+04 | t 5.500e+02 | y 8.41923e-03 <<< DONE
+BS-4         > m 1.0e+04 | t 5.450e+02 | y 8.93967e-03 <<< DONE
+BS-5         > m 1.0e+04 | t 6.203e+02 | y 3.07723e-02 <<< DONE
+BS-6         > m 1.0e+04 | t 5.304e+02 | y 8.66080e-02 <<< DONE
+BS-7         > m 1.0e+04 | t 7.075e+02 | y 7.34802e-03 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-16                                 | DIMS =    50 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i", where
+    "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 5.424e+02 | y 1.40614e-02 <<< DONE
+BS-1         > m 1.0e+04 | t 9.694e+02 | y 2.63201e-02 <<< DONE
+BS-2         > m 1.0e+04 | t 3.007e+03 | y 3.53521e-02 <<< DONE
+BS-3         > m 1.0e+04 | t 5.780e+02 | y 1.67184e-02 <<< DONE
+BS-4         > m 1.0e+04 | t 5.950e+02 | y 1.68041e-02 <<< DONE
+BS-5         > m 1.0e+04 | t 5.707e+02 | y 5.27568e-02 <<< DONE
+BS-6         > m 1.0e+04 | t 5.737e+02 | y 5.19129e-02 <<< DONE
+BS-7         > m 1.0e+04 | t 6.975e+02 | y 1.43896e-02 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-17                                 | DIMS =   100 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i", where
+    "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution). ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 6.407e+02 | y 2.95674e-02 <<< DONE
+BS-1         > m 1.0e+04 | t 6.073e+02 | y 5.72257e-01 <<< DONE
+BS-2         > m 1.0e+04 | t 4.245e+03 | y 1.51635e-01 <<< DONE
+BS-3         > m 1.0e+04 | t 6.736e+02 | y 4.77420e-02 <<< DONE
+BS-4         > m 1.0e+04 | t 6.876e+02 | y 3.57622e-02 <<< DONE
+BS-5         > m 1.0e+04 | t 6.610e+02 | y 7.68509e-02 <<< DONE
+BS-6         > m 1.0e+04 | t 6.871e+02 | y 5.28973e-02 <<< DONE
+BS-7         > m 1.0e+04 | t 7.795e+02 | y 3.71663e-02 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-18                                 | DIMS =    25 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i" and
+    constraint of the special form, where "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution).
+    TODO: add options for constraint. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 3.281e+02 | y 1.39232e-02 <<< DONE
+BS-1         > m 1.0e+04 | t 9.290e+01 | y 1.12868e-02 <<< DONE
+BS-2         > m 9.8e+03 | t 5.881e+02 | y 1.38530e-02 <<< DONE
+BS-3         > m 1.0e+04 | t 3.191e+02 | y 3.40018e-02 <<< DONE
+BS-4         > m 1.0e+04 | t 5.162e+02 | y 6.24609e-02 <<< DONE
+BS-5         > m 1.0e+04 | t 2.029e+02 | y 2.83103e-01 <<< DONE
+BS-6         > m 1.0e+04 | t 5.339e+02 | y 6.43732e-02 <<< DONE
+BS-7         > m 1.0e+04 | t 4.745e+02 | y 2.05630e-02 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-19                                 | DIMS =    50 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i" and
+    constraint of the special form, where "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution).
+    TODO: add options for constraint. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 8.740e+00 | y 6.42995e-02 <<< DONE
+BS-1         > m 1.0e+04 | t 6.949e+01 | y 5.72245e-01 <<< DONE
+BS-2         > m 9.9e+03 | t 9.120e+02 | y 6.74044e-02 <<< DONE
+BS-3         > m 1.0e+04 | t 1.713e+01 | y 1.00000e+42 <<< DONE
+BS-4         > m 1.0e+04 | t 1.745e+01 | y 1.00000e+42 <<< DONE
+BS-5         > m 1.0e+04 | t 1.616e+01 | y 1.00000e+42 <<< DONE
+BS-6         > m 1.0e+04 | t 1.684e+01 | y 1.00000e+42 <<< DONE
+BS-7         > m 1.0e+04 | t 4.743e+01 | y 1.00000e+42 <<< DONE
+
+
+
+------------------------------------------------------------------------------
+BM: P-20                                 | DIMS =   100 | <MODE SIZE> =    2.0
+
+  [ Discrete optimal control (OC) problem with simple 1D ODE "x**3 - i" and
+    constraint of the special form, where "i" is a binary control variable.
+    The dimension may be any (default is 50), and the mode size should be 2.
+    The benchmark needs "gekko==1.0.6" library (it is used for ODE solution).
+    TODO: add options for constraint. ]
+==============================================================================
+
+Our          > m 1.0e+04 | t 9.233e+00 | y 1.54656e-01 <<< DONE
+BS-1         > m 1.0e+04 | t 5.264e-01 | y 1.00000e+42 <<< DONE
+BS-2         > m 9.9e+03 | t 9.318e+02 | y 2.02402e-01 <<< DONE
+BS-3         > m 1.0e+04 | t 2.116e+01 | y 1.00000e+42 <<< DONE
+BS-4         > m 1.0e+04 | t 2.142e+01 | y 1.00000e+42 <<< DONE
+BS-5         > m 1.0e+04 | t 2.028e+01 | y 1.00000e+42 <<< DONE
+BS-6         > m 1.0e+04 | t 2.084e+01 | y 1.00000e+42 <<< DONE
+BS-7         > m 1.0e+04 | t 6.226e+01 | y 1.00000e+42 <<< DONE

@@ -79,8 +79,8 @@ class Opti:
 
         return y
 
-    def info(self):
-        name = self.name + ' '*max(0, 12-len(self.name))
+    def info(self, len_name=12):
+        name = self.name + ' '*max(0, len_name-len(self.name))
         text = f'{name} > '
 
         text += f'm {self.m:-7.1e} | '
@@ -90,7 +90,7 @@ class Opti:
         if self.e is not None:
             text += f'e {self.e:-7.1e}'
         else:
-            text += f'y {self.y:-11.4e}'
+            text += f'y {self.y:-11.5e}'
 
         if self.is_done:
             text += ' <<< DONE'

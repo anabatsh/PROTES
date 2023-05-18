@@ -28,9 +28,4 @@ class OptiOptimatt(Opti):
         Y = teneva.truncate(Y, e=1.E-16)
 
         i_min, y_min, i_max, y_max = teneva.optima_tt(Y)
-        if self.is_max:
-            i, y = i_max, y_max
-        else:
-            i, y = i_min, y_min
-
-        self.check(i.reshape(1, -1), np.array([y]))
+        self.f(i_max if self.is_max else i_min)
