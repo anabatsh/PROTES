@@ -59,8 +59,6 @@ setup_args = dict(
     project_urls={
         'Source': 'https://github.com/anabatsh/PROTES',
     },
-    license='MIT',
-    license_files = ('LICENSE.txt',),
 )
 
 
