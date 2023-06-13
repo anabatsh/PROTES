@@ -26,6 +26,7 @@
     ```bash
     python setup.py install
     ```
+    > You may also use the command `pip install protes`
 
 6. Install additional packages for `calc`:
     ```bash

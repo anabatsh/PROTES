@@ -10,7 +10,7 @@ Method **PROTES** (**PR**obability **O**ptimizer with **TE**nsor **S**ampling) f
 
 To use this package, please install manually first the [python](https://www.python.org) programming language of the version >= 3.8, then, the package can be installed via pip: `pip install protes`.
 
-> Required python packages ["jax[cpu]"](https://github.com/google/jax) (0.4.6+), [matplotlib](https://matplotlib.org/) (3.7.0+), [numpy](https://numpy.org) (1.22+), [optax](https://github.com/deepmind/optax) (0.1.5+) and [seaborn](https://seaborn.pydata.org/) (1.22+) will be automatically installed during the installation of the main software product.
+> Required python packages ["jax[cpu]"](https://github.com/google/jax) (0.4.6+), [matplotlib](https://matplotlib.org/) (3.7.0+), [numpy](https://numpy.org) (1.22+), [optax](https://github.com/deepmind/optax) (0.1.5+) and [seaborn](https://seaborn.pydata.org/) (1.22+) will be automatically installed during the installation of the main software product. To ensure version stability, we recommend working in a virtual environment, as described in the `workflow.md`.
 
 To run scripts from the `calc` folder (numerical experiments for various benchmarks and comparison with various baselines), please install also additional dependencies as `pip install -r requirements_calc.txt`.
 
