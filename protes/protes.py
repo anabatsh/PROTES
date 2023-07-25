@@ -55,7 +55,6 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
 
         y = f(I)
         if y is None:
-            info['t'] = tpc() - time
             break
 
         y = jnp.array(y)
@@ -64,7 +63,6 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         is_new = _check(P, I, y, info, with_info_i_opt_list, with_info_full)
 
         if info['m_max'] and info['m'] >= info['m_max']:
-            info['t'] = tpc() - time
             break
 
         ind = jnp.argsort(y, kind='stable')
@@ -74,9 +72,9 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
             state, P = optimize(state, P, I[ind, :])
 
         info['t'] = tpc() - time
-
         _log(info, log, log_ind, is_new)
 
+    info['t'] = tpc() - time
     _log(info, log, log_ind, is_new, is_end=True)
 
     return info['i_opt'], info['y_opt']
