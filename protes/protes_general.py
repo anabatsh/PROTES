@@ -4,7 +4,7 @@ import optax
 from time import perf_counter as tpc
 
 
-def protes_general(f, n, m, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
+def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
                    is_max=False, log=False, log_ind=False, info={}, P=None,
                    with_info_i_opt_list=False, with_info_full=False):
     time = tpc()
@@ -46,12 +46,16 @@ def protes_general(f, n, m, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         I = sample(P, jax.random.split(key, k))
 
         y = f(I)
+        if y is None:
+            info['t'] = tpc() - time
+            break
+
         y = jnp.array(y)
         info['m'] += y.shape[0]
 
         is_new = _check(P, I, y, info, with_info_i_opt_list, with_info_full)
 
-        if info['m'] >= m:
+        if info['m_max'] and info['m'] >= info['m_max']:
             info['t'] = tpc() - time
             break
 
