@@ -8,7 +8,7 @@ Method **PROTES** (**PR**obability **O**ptimizer with **TE**nsor **S**ampling) f
 
 ## Installation
 
-> Current version "0.3.3".
+> Current version "0.3.4".
 
 To use this package, please install manually first the [python](https://www.python.org) programming language of the version `3.8` or `3.9`, then, the package can be installed via pip: `pip install protes`.
 
