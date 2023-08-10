@@ -131,7 +131,7 @@ def _interface_matrices(Ym, Yr):
     Z, Zr = body(jnp.ones(1), Yr)
     _, Zm = jax.lax.scan(body, Z, Ym, reverse=True)
 
-    return jnp.vstack((Zm[1:], Zr))
+    return jnp.vstack((Zm, Zr))
 
 
 def _likelihood(Yl, Ym, Yr, Zm, i):
@@ -148,8 +148,8 @@ def _likelihood(Yl, Ym, Yr, Zm, i):
 
         return Q, G[I_cur]
 
-    Q, yl = body(jnp.ones(1), (i[0], Yl, Yl[0, i[0], :]))
-    Q, ym = jax.lax.scan(body, Q, (i[1:-1], Ym, Zm))
+    Q, yl = body(jnp.ones(1), (i[0], Yl, Zm[0]))
+    Q, ym = jax.lax.scan(body, Q, (i[1:-1], Ym, Zm[1:]))
     Q, yr = body(Q, (i[-1], Yr, jnp.ones(1)))
 
     y = jnp.hstack((jnp.array(yl), ym, jnp.array(yr)))
@@ -194,7 +194,7 @@ def _sample(Yl, Ym, Yr, Zm, key):
     keys = jax.random.split(key, len(Ym) + 2)
 
     Q, il = body(jnp.ones(1), (keys[0], Yl, Zm[0]))
-    Q, im = jax.lax.scan(body, Q, (keys[1:-1], Ym, Zm))
+    Q, im = jax.lax.scan(body, Q, (keys[1:-1], Ym, Zm[1:]))
     Q, ir = body(Q, (keys[-1], Yr, jnp.ones(1)))
 
     il = jnp.array(il, dtype=jnp.int32)
