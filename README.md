@@ -10,7 +10,7 @@ Method **PROTES** (**PR**obabilistic **O**ptimizer with **TE**nsor **S**ampling)
 
 To use this package, please install manually first the [python](https://www.python.org) programming language of the version `3.8` or `3.9`, then, the package can be installed via pip:
 ```bash
-pip install protes==0.3.4
+pip install protes==0.3.5
 ```
 
 > To ensure version stability, we recommend working in a virtual environment, as described in the `workflow.md`.
