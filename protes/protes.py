@@ -44,7 +44,7 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
     def optimize(state, P_cur, I_cur):
         grads = loss_grad(P_cur, I_cur)
         updates, state = optim.update(grads, state)
-        P_cur = jax.tree_util.tree_map(lambda u, p: p + u, updates, P_cur)
+        P_cur = jax.tree_util.tree_map(lambda p, u: p + u, P_cur, updates)
         return state, P_cur
 
     while True:
@@ -60,7 +60,7 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         y = jnp.array(y)
         info['m'] += y.shape[0]
 
-        is_new = _check(P, I, y, info, with_info_i_opt_list, with_info_full)
+        is_new = _process(P, I, y, info, with_info_i_opt_list, with_info_full)
 
         if info['m_max'] and info['m'] >= info['m_max']:
             break
@@ -78,36 +78,6 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
     _log(info, log, is_new, is_end=True)
 
     return info['i_opt'], info['y_opt']
-
-
-def _check(P, I, y, info, with_info_i_opt_list, with_info_full):
-    """Check the current batch of function values and save the improvement."""
-    ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
-
-    i_opt_curr = I[ind_opt, :]
-    y_opt_curr = y[ind_opt]
-
-    is_new = info['y_opt'] is None
-    is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
-    is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
-
-    if is_new:
-        info['i_opt'] = i_opt_curr
-        info['y_opt'] = y_opt_curr
-
-    if is_new or with_info_full:
-        info['m_opt_list'].append(info['m'])
-        info['y_opt_list'].append(info['y_opt'])
-
-        if with_info_i_opt_list or with_info_full:
-            info['i_opt_list'].append(info['i_opt'].copy())
-
-    if with_info_full:
-        info['P_list'].append([G.copy() for G in P])
-        info['I_list'].append(I.copy())
-        info['y_list'].append(y.copy())
-
-    return is_new
 
 
 def _generate_initial(d, n, r, key):
@@ -170,6 +140,36 @@ def _log(info, log=False, is_new=False, is_end=False):
         text += ' <<< DONE'
 
     print(text)
+
+
+def _process(P, I, y, info, with_info_i_opt_list, with_info_full):
+    """Check the current batch of function values and save the improvement."""
+    ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
+
+    i_opt_curr = I[ind_opt, :]
+    y_opt_curr = y[ind_opt]
+
+    is_new = info['y_opt'] is None
+    is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
+    is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
+
+    if is_new:
+        info['i_opt'] = i_opt_curr
+        info['y_opt'] = y_opt_curr
+
+    if is_new or with_info_full:
+        info['m_opt_list'].append(info['m'])
+        info['y_opt_list'].append(info['y_opt'])
+
+        if with_info_i_opt_list or with_info_full:
+            info['i_opt_list'].append(info['i_opt'].copy())
+
+    if with_info_full:
+        info['P_list'].append([G.copy() for G in P])
+        info['I_list'].append(I.copy())
+        info['y_list'].append(y.copy())
+
+    return is_new
 
 
 def _sample(Yl, Ym, Yr, Zm, key):
