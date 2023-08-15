@@ -40,7 +40,7 @@ def func_build():
 
 
 def demo():
-    """Demonstration for QUBO problem.
+    """A demonstration for QUBO problem.
 
     We will solve the binary knapsack problem with fixed weights wi in [5, 20],
     profits pi in [50, 100] (i = 1, 2, . . . , d) and the maximum capacity
@@ -51,29 +51,37 @@ def demo():
 
     The result in console should looks like this:
 
-    protes > m 1.0e+02 | t 3.447e+00 | y -2.7530e+03
-    protes > m 2.0e+02 | t 3.464e+00 | y -2.7650e+03
-    protes > m 7.0e+02 | t 3.498e+00 | y -2.7680e+03
-    protes > m 9.0e+02 | t 3.510e+00 | y -2.7760e+03
-    protes > m 1.0e+03 | t 3.515e+00 | y -2.8630e+03
-    protes > m 1.3e+03 | t 3.533e+00 | y -2.8730e+03
-    protes > m 1.4e+03 | t 3.539e+00 | y -2.9310e+03
-    protes > m 1.6e+03 | t 3.551e+00 | y -2.9390e+03
-    protes > m 1.8e+03 | t 3.563e+00 | y -2.9510e+03
-    protes > m 1.9e+03 | t 3.568e+00 | y -2.9990e+03
-    protes > m 2.5e+03 | t 3.604e+00 | y -3.0020e+03
-    protes > m 2.9e+03 | t 3.627e+00 | y -3.0250e+03
-    protes > m 3.0e+03 | t 3.633e+00 | y -3.0790e+03
-    protes > m 1.0e+04 | t 4.029e+00 | y -3.0790e+03 <<< DONE
+    protes > m 1.0e+03 | t 3.183e+00 | y -2.7700e+03
+    protes > m 2.0e+03 | t 3.216e+00 | y -2.7910e+03
+    protes > m 3.0e+03 | t 3.241e+00 | y -2.8280e+03
+    protes > m 4.0e+03 | t 3.265e+00 | y -2.9100e+03
+    protes > m 6.0e+03 | t 3.315e+00 | y -2.9130e+03
+    protes > m 7.0e+03 | t 3.339e+00 | y -2.9620e+03
+    protes > m 9.0e+03 | t 3.389e+00 | y -2.9780e+03
+    protes > m 1.0e+04 | t 3.413e+00 | y -3.0020e+03
+    protes > m 1.2e+04 | t 3.462e+00 | y -3.0180e+03
+    protes > m 1.3e+04 | t 3.486e+00 | y -3.0350e+03
+    protes > m 1.5e+04 | t 3.535e+00 | y -3.0380e+03
+    protes > m 1.7e+04 | t 3.584e+00 | y -3.0410e+03
+    protes > m 1.9e+04 | t 3.633e+00 | y -3.0610e+03
+    protes > m 2.2e+04 | t 3.707e+00 | y -3.0720e+03
+    protes > m 2.8e+04 | t 3.850e+00 | y -3.0780e+03
+    protes > m 2.9e+04 | t 3.873e+00 | y -3.0860e+03
+    protes > m 3.0e+04 | t 3.897e+00 | y -3.0870e+03
+    protes > m 3.1e+04 | t 3.921e+00 | y -3.0910e+03
+    protes > m 3.5e+04 | t 4.018e+00 | y -3.0960e+03
+    protes > m 4.7e+04 | t 4.300e+00 | y -3.0980e+03
+    protes > m 4.9e+04 | t 4.349e+00 | y -3.1030e+03
+    protes > m 5.0e+04 | t 4.372e+00 | y -3.1030e+03 <<< DONE
 
-    RESULT | y opt = -3.0790e+03 | time =     4.0412
+    RESULT | y opt = -3.1030e+03 | time =     4.3837
 
     """
     d, n, f = func_build() # Target function, and array shape
-    m = int(1.E+4)         # Number of requests to the objective function
+    m = int(5.E+4)         # Number of requests to the objective function
 
     t = tpc()
-    i_opt, y_opt = protes(f, d, n, m, log=True)
+    i_opt, y_opt = protes(f, d, n, m, k=1000, k_top=5, log=True)
     print(f'\nRESULT | y opt = {y_opt:-11.4e} | time = {tpc()-t:-10.4f}\n\n')
 
 
