@@ -8,7 +8,11 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
                    is_max=False, log=False, info={}, P=None,
                    with_info_i_opt_list=False, with_info_full=False):
     time = tpc()
-    info.update({'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
+
+    d = len(n)
+    n = jnp.array(n, dtype=jnp.int32)
+
+    info.update({'d': d, 'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
         'is_rand': P is None, 't': 0, 'i_opt': None, 'y_opt': None,
         'm_opt_list': [], 'i_opt_list': [], 'y_opt_list': []})
@@ -39,7 +43,7 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
     def optimize(state, P_cur, I_cur):
         grads = loss_grad(P_cur, I_cur)
         updates, state = optim.update(grads, state)
-        P_cur = jax.tree_util.tree_map(lambda u, p: p + u, updates, P_cur)
+        P_cur = jax.tree_util.tree_map(lambda p, u: p + u, P_cur, updates)
         return state, P_cur
 
     while True:
@@ -53,7 +57,7 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         y = jnp.array(y)
         info['m'] += y.shape[0]
 
-        is_new = _check(P, I, y, info, with_info_i_opt_list, with_info_full)
+        is_new = _process(P, I, y, info, with_info_i_opt_list, with_info_full)
 
         if info['m_max'] and info['m'] >= info['m_max']:
             break
@@ -71,36 +75,6 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
     _log(info, log, is_new, is_end=True)
 
     return info['i_opt'], info['y_opt']
-
-
-def _check(P, I, y, info, with_info_i_opt_list, with_info_full):
-    """Check the current batch of function values and save the improvement."""
-    ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
-
-    i_opt_curr = I[ind_opt, :]
-    y_opt_curr = y[ind_opt]
-
-    is_new = info['y_opt'] is None
-    is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
-    is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
-
-    if is_new:
-        info['i_opt'] = i_opt_curr
-        info['y_opt'] = y_opt_curr
-
-    if is_new or with_info_full:
-        info['m_opt_list'].append(info['m'])
-        info['y_opt_list'].append(info['y_opt'])
-
-        if with_info_i_opt_list or with_info_full:
-            info['i_opt_list'].append(info['i_opt'].copy())
-
-    if with_info_full:
-        info['P_list'].append([G.copy() for G in P])
-        info['I_list'].append(I.copy())
-        info['y_list'].append(y.copy())
-
-    return is_new
 
 
 def _generate_initial(n, r, key):
@@ -171,6 +145,36 @@ def _log(info, log=False, is_new=False, is_end=False):
     print(text)
 
 
+def _process(P, I, y, info, with_info_i_opt_list, with_info_full):
+    """Check the current batch of function values and save the improvement."""
+    ind_opt = jnp.argmax(y) if info['is_max'] else jnp.argmin(y)
+
+    i_opt_curr = I[ind_opt, :]
+    y_opt_curr = y[ind_opt]
+
+    is_new = info['y_opt'] is None
+    is_new = is_new or info['is_max'] and info['y_opt'] < y_opt_curr
+    is_new = is_new or not info['is_max'] and info['y_opt'] > y_opt_curr
+
+    if is_new:
+        info['i_opt'] = i_opt_curr
+        info['y_opt'] = y_opt_curr
+
+    if is_new or with_info_full:
+        info['m_opt_list'].append(info['m'])
+        info['y_opt_list'].append(info['y_opt'])
+
+        if with_info_i_opt_list or with_info_full:
+            info['i_opt_list'].append(info['i_opt'].copy())
+
+    if with_info_full:
+        info['P_list'].append([G.copy() for G in P])
+        info['I_list'].append(I.copy())
+        info['y_list'].append(y.copy())
+
+    return is_new
+
+
 def _sample(Y, key):
     """Generate sample according to given probability TT-tensor."""
     d = len(Y)
@@ -183,7 +187,8 @@ def _sample(Y, key):
     G = jnp.abs(G)
     G /= G.sum()
 
-    i = jax.random.choice(keys[0], jnp.arange(Y[0].shape[1]), p=G)
+    n = Y[0].shape[1]
+    i = jax.random.choice(keys[0], jnp.arange(n, dtype=jnp.int32), p=G)
     I = I.at[0].set(i)
 
     Z[0] = Y[0][0, i, :]
@@ -193,7 +198,8 @@ def _sample(Y, key):
         G = jnp.abs(G)
         G /= jnp.sum(G)
 
-        i = jax.random.choice(keys[j], jnp.arange(Y[j].shape[1]), p=G)
+        n = Y[j].shape[1]
+        i = jax.random.choice(keys[j], jnp.arange(n, dtype=jnp.int32), p=G)
         I = I.at[j].set(i)
 
         Z[j] = Z[j-1] @ Y[j][:, i, :]
