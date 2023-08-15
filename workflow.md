@@ -1,6 +1,6 @@
 # workflow
 
-> Workflow instructions for `protes` developers
+> Workflow instructions for `protes` developers.
 
 
 ## How to install the current local version
@@ -21,19 +21,14 @@
     ```bash
     python setup.py install
     ```
-    > You may also use the command `pip install --no-cache-dir protes` to install the current public version
+    > You may also use the command `pip install --no-cache-dir protes` to install the current public version.
 
-5. Install additional dependencies to be able run the computation from the `calc` folder (note that it works only for `python 3.8`):
-    ```bash
-    pip install -r requirements_calc.txt
-    ```
-
-6. Reinstall `protes` from the source (after updates of the code):
+5. Reinstall `protes` from the source (after updates of the code):
     ```bash
     clear && pip uninstall protes -y && python setup.py install
     ```
 
-7. Optionally delete virtual environment at the end of the work:
+6. Optionally delete virtual environment at the end of the work:
     ```bash
     conda activate && conda remove --name protes --all -y
     ```

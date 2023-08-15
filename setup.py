@@ -14,7 +14,7 @@ def find_packages(package, basepath):
 
 
 here = os.path.abspath(os.path.dirname(__file__))
-desc = 'Method PROTES (PRobability Optimizer with TEnsor Sampling) for derivative-free optimization of the multidimensional arrays and discretized multivariate functions based on the tensor train (TT) format'
+desc = 'Method PROTES (PRobabilistic Optimizer with TEnsor Sampling) for derivative-free optimization of the multidimensional arrays and discretized multivariate functions based on the tensor train (TT) format'
 with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
     desc_long = f.read()
 

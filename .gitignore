@@ -8,4 +8,5 @@
 .thumbs.db
 __pycache__/
 build/
+calc_ext/
 dist/
