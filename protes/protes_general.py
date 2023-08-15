@@ -5,7 +5,7 @@ from time import perf_counter as tpc
 
 
 def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
-                   is_max=False, log=False, log_ind=False, info={}, P=None,
+                   is_max=False, log=False, info={}, P=None,
                    with_info_i_opt_list=False, with_info_full=False):
     time = tpc()
     info.update({'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
@@ -65,10 +65,10 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
             state, P = optimize(state, P, I[ind, :])
 
         info['t'] = tpc() - time
-        _log(info, log, log_ind, is_new)
+        _log(info, log, is_new)
 
     info['t'] = tpc() - time
-    _log(info, log, log_ind, is_new, is_end=True)
+    _log(info, log, is_new, is_end=True)
 
     return info['i_opt'], info['y_opt']
 
@@ -155,7 +155,7 @@ def _likelihood(Y, I):
     return jnp.sum(jnp.log(jnp.array(y)))
 
 
-def _log(info, log=False, log_ind=False, is_new=False, is_end=False):
+def _log(info, log=False, is_new=False, is_end=False):
     """Print current optimization result to output."""
     if not log or (not is_new and not is_end):
         return
@@ -164,9 +164,6 @@ def _log(info, log=False, log_ind=False, is_new=False, is_end=False):
     text += f'm {info["m"]:-7.1e} | '
     text += f't {info["t"]:-9.3e} | '
     text += f'y {info["y_opt"]:-11.4e}'
-
-    if log_ind:
-        text += f' | i {" ".join([str(i) for i in info["i_opt"]])}'
 
     if is_end:
         text += ' <<< DONE'
