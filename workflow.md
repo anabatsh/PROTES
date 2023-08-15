@@ -38,7 +38,7 @@
 
 1. Reinstall the package from the source and run the demo script for Ackley function and for QUBO problem:
     ```bash
-    pip uninstall protes -y && python setup.py install && clear && python demo/demo_func.py && python demo/demo_qubo.py
+    pip uninstall protes -y && python setup.py install && clear && python demo/demo_func.py && python demo/demo_qubo.py && python demo/demo_func_general.py
     ```
 
 2. Update version (like `0.3.X`) in `protes/__init__.py` and `README.md` files, where `X` is a new subversion number
