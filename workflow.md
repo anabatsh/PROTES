@@ -5,7 +5,7 @@
 
 ## How to install the current local version
 
-1. Install [python](https://www.python.org) (version 3.8; you may use [anaconda](https://www.anaconda.com) package manager);
+1. Install [anaconda](https://www.anaconda.com) package manager with [python](https://www.python.org) (version 3.8);
 
 2. Create and activate a virtual environment:
     ```bash
@@ -36,7 +36,7 @@
 
 ## How to update the package version
 
-1. Reinstall the package from the source and run the demo script for Ackley function and for QUBO problem:
+1. Reinstall the package from the source and run the demo scripts to check the correctness of the code:
     ```bash
     pip uninstall protes -y && python setup.py install && clear && python demo/demo_func.py && python demo/demo_qubo.py && python demo/demo_func_general.py
     ```
@@ -50,7 +50,7 @@
     rm -r ./dist && python setup.py sdist bdist_wheel && twine upload dist/*
     ```
 
-5. Reinstall the package from `pypi` and check that installed version is new:
+5. Reinstall the package from `pypi` and check that the installed version is new:
     ```bash
     pip uninstall protes -y && pip install --no-cache-dir --upgrade protes
     ```

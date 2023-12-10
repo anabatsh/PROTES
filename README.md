@@ -13,7 +13,7 @@ To use this package, please install manually first the [python](https://www.pyth
 pip install protes==0.3.5
 ```
 
-> To ensure version stability, we recommend working in a virtual environment, as described in the `workflow.md`.
+> To ensure version stability, we recommend working in a virtual environment, as described in the `workflow.md`. Also note that `requirements.txt` contains `jax[cpu]`; if you need the GPU version of the `jax`, please install it yourself.
 
 
 ## Usage
@@ -27,7 +27,7 @@ f_batch = lambda I: np.sum(I, axis=1)
 i_opt, y_opt = protes(f=f_batch, d=10, n=5, m=5.E+3, log=True)
 ```
 
-The function `f_batch` takes a set of multi-indices `I` (`jax` array having a size `samples x d`) and returns a list (or `jax` array or `numpy` array) of the corresponding tensor values; `m` is is the computational budget (the allowed number of requested tensor elements). Returned values `i_opt` (`jax` array) and `y_opt` (float) are the found multi-index and the value in this multi-index for the approximate optimum (minimum, since the flag `is_max` is not set) of the target tensor, respectively.
+The function `f_batch` takes a set of multi-indices `I` (`jax` array having a size `samples x d`) and returns a list (or `jax` array or `numpy` array) of the corresponding tensor values; `m` is is the computational budget (the allowed number of requested tensor elements). Returned values `i_opt` (`jax` array) and `y_opt` (float) are the found multi-index and the value in this multi-index for the approximate optimum (in our case, minimum, since the flag `is_max` is not set) of the target tensor, respectively.
 
 > The input `I` can be easily converted to a `numpy` array if needed (i.e., `import numpy as np; I = np.array(I)`), so you you can use the ordinary `numpy` inside the taget function and do not use the `jax` at all.
 
@@ -49,14 +49,18 @@ Please, see also the `demo` folder, which contains several examples of using the
 - `m` (int) - the number of allowed requests to the objective function (the default value is `None`). If this parameter is not set, then the optimization process will continue until the objective function returns `None` instead of a list of values.
 - `k` (int) - the batch size for optimization (the default value is `100`).
 - `k_top` (int) - number of selected candidates in the batch (it should be `< k`; the default value is `10`).
-- `k_gd` (int) - number of gradient lifting iterations for each batch (the default value is `1`).
-- `lr` (float): learning rate for gradient lifting iterations (the default value is `5.E-2`).
-- `r` (int): TT-rank of the constructed probability TT-tensor (the default value is `5`).
+- `k_gd` (int) - number of gradient lifting iterations for each batch (the default value is `1`. Please note that this value ensures the maximum performance of the method, however, for a number of problems, a more accurate result is obtained by increasing this parameter, for example to `100`).
+- `lr` (float): learning rate for gradient lifting iterations (the default value is `5.E-2`. Please note that this value must be correlated with the parameter `k_gd`).
+- `r` (int): TT-rank of the constructed probability TT-tensor (the default value is `5`. Please note that we have not yet found problems where changing this value would lead to an improvement in the result).
 - `seed` (int): parameter for jax random generator (the default value is `0`).
 - `is_max` (bool): if flag is set, then maximization rather than minimization will be performed.
-- `log` (bool): if flag is set, then the information about the progress of the algorithm will be printed after each improvement of the optimization result and at the end of the algorithm's work.
+- `log` (bool): if flag is set, then the information about the progress of the algorithm will be printed after each improvement of the optimization result and at the end of the algorithm's work. Not that this argument may be also a function, in this case it will be used instead of ordinary `print`.
 - `info` (dict): optional dictionary, which will be filled with reference information about the process of the algorithm operation.
 - `P` (list): optional initial probability tensor in the TT-format (represented as a list of jax arrays, where all non-edge TT-cores are merged into one array; see the function `_generate_initial` in `protes.py` for details). If this parameter is not set, then a random initial TT-tensor will be generated. Note that this tensor will be changed inplace.
+
+**Other arguments**:
+
+there are also a few more arguments (not documented) that we use for special applications.
 
 
 ## Notes
@@ -69,7 +73,7 @@ Please, see also the `demo` folder, which contains several examples of using the
     jax.config.update('jax_enable_x64', True)
     ```
 
-- If there is a GPU, the `jax` optimizer code will be automatically executed on it, however, the current version of the code works better on the CPU (also, we did not conduct thorough testing of the current version of the code on the GPU). To use CPU on a device with available GPU, you should specify the following code at the beginning of the executable script:
+- If there is a GPU, the `jax` optimizer code will be automatically executed on it, however, the current version of the code works better on the CPU. To use CPU on a device with available GPU, you should specify the following code at the beginning of the executable script:
     ```python
     import jax
     jax.config.update('jax_platform_name', 'cpu')
@@ -94,7 +98,7 @@ If you find our approach and/or code useful in your research, please consider ci
     author    = {Batsheva, Anastasia and Chertkov, Andrei and Ryzhakov, Gleb and Oseledets, Ivan},
     year      = {2023},
     title     = {{PROTES}: {P}robabilistic optimization with tensor sampling},
-    journal   = {arXiv preprint arXiv:2301.12162},
+    journal   = {Advances in Neural Information Processing Systems},
     url       = {https://arxiv.org/pdf/2301.12162.pdf}
 }
 ```

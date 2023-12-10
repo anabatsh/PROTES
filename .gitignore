@@ -10,3 +10,13 @@ __pycache__/
 build/
 calc_ext/
 dist/
+
+_audio/
+_doc/
+_pack/
+_share/
+_slides/
+_text/
+_tmp/
+_video/
+_.md

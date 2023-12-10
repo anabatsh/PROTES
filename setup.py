@@ -52,8 +52,10 @@ setup_args = dict(
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
-    keywords='Derivative-free optimization multidimensional optimization low-rank representation tensor train format',
+    keywords='Derivative-free optimization gradient-free method multidimensional optimization low-rank representation tensor train format',
     packages=find_packages('protes', './protes/'),
     python_requires='>=3.8',
     project_urls={
