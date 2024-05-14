@@ -62,7 +62,7 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         if info['m_max'] and info['m'] >= info['m_max']:
             break
 
-        ind = jnp.argsort(y, kind='stable')
+        ind = jnp.argsort(y)
         ind = (ind[::-1] if is_max else ind)[:k_top]
 
         for _ in range(k_gd):
