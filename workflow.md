@@ -5,11 +5,11 @@
 
 ## How to install the current local version
 
-1. Install [anaconda](https://www.anaconda.com) package manager with [python](https://www.python.org) (version 3.8);
+1. Install [anaconda](https://www.anaconda.com) package manager with [python](https://www.python.org);
 
 2. Create and activate a virtual environment:
     ```bash
-    conda create --name protes python=3.8 -y && conda activate protes
+    conda create --name PROTES python=3.10 -y && conda activate PROTES
     ```
 
 3. Install special dependencies (for developers only):
@@ -30,7 +30,7 @@
 
 6. Optionally delete virtual environment at the end of the work:
     ```bash
-    conda activate && conda remove --name protes --all -y
+    conda activate && conda remove --name PROTES --all -y
     ```
 
 
