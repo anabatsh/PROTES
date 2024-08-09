@@ -8,7 +8,7 @@ Method **PROTES** (**PR**obabilistic **O**ptimizer with **TE**nsor **S**ampling)
 
 ## Installation
 
-To use this package, please install manually first the [python](https://www.python.org) programming language of the version `3.8` - `3.10`, then, the package can be installed via pip:
+To use this package, please install manually first the [python](https://www.python.org) programming language of the version `3.8+`, then, the package can be installed via pip:
 ```bash
 pip install protes==0.3.7
 ```
@@ -31,9 +31,9 @@ The function `f_batch` takes a set of multi-indices `I` (`jax` array having a si
 
 > The input `I` can be easily converted to a `numpy` array if needed (i.e., `import numpy as np; I = np.array(I)`), so you you can use the ordinary `numpy` inside the taget function and do not use the `jax` at all.
 
-> Note that the code runs orders of magnitude faster if the tensor's mode size (`n`) is the same for all modes, as shown in the example above. If you need to optimize a tensor with discriminating mode sizes, then you should use the slow `protes_general` function (i.e., `from protes import protes_general`). In this case, instead of two parameters `d` and `n`, one parameter `n` should be passed, which is a list of the length `d` corresponding to the mode sizes in each dimension (all other parameters for the function `protes_general` are the same as for the function `protes`, which are detailed in the next section).
+> Note that the code runs orders of magnitude faster if the tensor's mode size (`n`) is the same for all modes, as was in the example above. If you need to optimize a tensor with discriminating mode sizes, then you should use the slow `protes_general` function (i.e., `from protes import protes_general`). In this case, instead of two parameters `d` and `n`, one parameter `n` should be passed, which is a list of the length `d` corresponding to the mode sizes in each dimension (all other parameters for the function `protes_general` are the same as for the function `protes`, which are detailed in the next section).
 
-Please, see also the `demo` folder, which contains several examples of using the `PROTES` method for real tasks (a simple demo can be run in the console with a command `python demo/demo_func.py` and `python demo/demo_qubo.py`).
+Please, see also the `demo` folder, which contains several examples of using the `PROTES` method for real problems (a simple demo can be run in the console with a command `python demo/demo_func.py` and `python demo/demo_qubo.py`).
 
 
 ## Parameters of the `protes` function
@@ -41,8 +41,11 @@ Please, see also the `demo` folder, which contains several examples of using the
 **Mandatory arguments**:
 
 - `f` (function) - the target function `f(I)`, where input `I` is a 2D jax array of the shape `[samples, d]` (`d` is a number of dimensions of the function's input and `samples` is a batch size of requested multi-indices). The function should return 1D list or jax array or numpy array of the length equals to `samples` (the values of the target function for all provided multi-indices, i.e., the values of the optimized tensor).
+    > If the function returns `None`, the optimizer will immediately terminate normally (and the currently found approximation to the optimum will be returned). If the function returns an empty list or an empty array, the current iteration will be skipped and the function will be called again with a new batch of samples on the next iteration.
 - `d` (int) - number of tensor dimensions.
+    > For the slow function `protes_general` this argument is missing (instead, the dimension is determined by the length of argument `n`).
 - `n` (int) - mode size for each tensor's dimension.
+    > If the dimensions differ for different modes, then the slow function `protes_general` should be used, in which case this argument should be a list.
 
 **Optional arguments**:
 
@@ -54,9 +57,10 @@ Please, see also the `demo` folder, which contains several examples of using the
 - `r` (int): TT-rank of the constructed probability TT-tensor (the default value is `5`. Please note that we have not yet found problems where changing this value would lead to an improvement in the result).
 - `seed` (int): parameter for jax random generator (the default value is `0`).
 - `is_max` (bool): if flag is set, then maximization rather than minimization will be performed.
-- `log` (bool): if flag is set, then the information about the progress of the algorithm will be printed after each improvement of the optimization result and at the end of the algorithm's work. Not that this argument may be also a function, in this case it will be used instead of ordinary `print`.
+- `log` (bool): if flag is set, then the information about the progress of the algorithm will be printed after each improvement of the optimization result and at the end of the algorithm's work. Not that this argument may be also a function, in this case it will be used instead of ordinary `print` (i.e., `log(text) will be launched`).
 - `info` (dict): optional dictionary, which will be filled with reference information about the process of the algorithm operation.
 - `P` (list): optional initial probability tensor in the TT-format (represented as a list of jax arrays, where all non-edge TT-cores are merged into one array; see the function `_generate_initial` in `protes.py` for details). If this parameter is not set, then a random initial TT-tensor will be generated. Note that this tensor will be changed inplace.
+    > If the slow function `protes_general` is used, this parameter must be (if specified) a list of ordinary 3D TT-cores of the length `d`.
 
 **Other arguments**:
 
@@ -76,6 +80,11 @@ there are also a few more arguments (not documented) that we use for special app
 - If there is a GPU, the `jax` optimizer code will be automatically executed on it, however, the current version of the code works better on the CPU. To use CPU on a device with available GPU, you should specify the following code at the beginning of the executable script:
     ```python
     import jax
+    import logging
+    # To remove jax warnings about GPU:
+    logger = logging.getLogger('jax._src.xla_bridge')
+    logger.setLevel(logging.ERROR)
+    # To use CPU instead of GPU:
     jax.config.update('jax_platform_name', 'cpu')
     jax.default_device(jax.devices('cpu')[0]);
     ```
