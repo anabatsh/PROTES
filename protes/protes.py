@@ -7,12 +7,13 @@ from time import perf_counter as tpc
 def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
            is_max=False, log=False, info={}, P=None, with_info_p=False,
            with_info_i_opt_list=False, with_info_full=False,
-           sample_ext=None):
+           sample_ext=None, k_rnd=None):
     time = tpc()
     info.update({'d': d, 'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
         'is_rand': P is None, 't': 0, 'i_opt': None, 'y_opt': None,
-        'm_opt_list': [], 'i_opt_list': [], 'y_opt_list': []})
+        'm_opt_list': [], 'i_opt_list': [], 'y_opt_list': [],
+        'k_rnd': k_rnd})
     if with_info_full:
         info.update({
             'P_list': [], 'I_list': [], 'y_list': []})
@@ -55,19 +56,41 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
 
     while True:
         if sample_ext:
-            I = sample_ext(P, k, seed)
-            seed += k
+            I_ext = sample_ext(P, k, seed, info)
+        elif k_rnd:
+            I_ext = _sample_rnd(info['i_opt'], k_rnd, d, n, seed)
         else:
+            I_ext = None
+        
+        k_cur = k - len(I_ext) if I_ext is not None else k
+        seed += k - k_cur
+        
+        if k_cur > 0:
             Pl, Pm, Pr = P
             Zm = interface_matrices(Pm, Pr)
             rng, key = jax.random.split(rng)
-            I = sample(Pl, Pm, Pr, Zm, jax.random.split(key, k))
+            I_own = sample(Pl, Pm, Pr, Zm, jax.random.split(key, k_cur))
+        else:
+            I_own = None
+
+        if I_ext is not None and I_own is not None:
+            I = jnp.concatenate((I_ext, I_own))
+        elif I_ext is not None:
+            I = I_ext
+        elif I_own is not None:
+            I = I_own
+        else:
+            raise NotImplementedError('Something strange')
+
+
 
         y = f(I)
         if y is None:
             break
         if len(y) == 0:
             continue
+        if len(y) != k:
+            raise ValueError('Target function returned invalid data')
 
         y = jnp.array(y)
         info['m'] += y.shape[0]
@@ -77,14 +100,15 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         if info['m_max'] and info['m'] >= info['m_max']:
             break
 
-        ind = jnp.argsort(y)
-        ind = (ind[::-1] if is_max else ind)[:k_top]
+        if k_top > 0:
+            ind = jnp.argsort(y)
+            ind = (ind[::-1] if is_max else ind)[:k_top]
 
-        for _ in range(k_gd):
-            state, P = optimize(state, P, I[ind, :])
-        
-        if with_info_p:
-            info['P'] = P
+            for _ in range(k_gd):
+                state, P = optimize(state, P, I[ind, :])
+            
+            if with_info_p:
+                info['P'] = P
 
         info['t'] = tpc() - time
         _log(info, log, is_new)
@@ -213,3 +237,17 @@ def _sample(Yl, Ym, Yr, Zm, key):
     il = jnp.array(il, dtype=jnp.int32)
     ir = jnp.array(ir, dtype=jnp.int32)
     return jnp.hstack((il, im, ir))
+
+
+def _sample_rnd(i, k, d, n, seed):
+    if i is None:
+        return
+    rng = jax.random.PRNGKey(seed)
+    I = jnp.repeat(i.reshape(1, -1), k, axis=0)
+    for num in range(k):
+        rng, key = jax.random.split(rng)
+        ch_d = jax.random.choice(key, d)
+        rng, key = jax.random.split(rng)
+        ch_n = jax.random.choice(key, n)
+        I = I.at[num, ch_d].set(ch_n)
+    return I
