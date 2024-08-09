@@ -6,7 +6,8 @@ from time import perf_counter as tpc
 
 def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
            is_max=False, log=False, info={}, P=None, with_info_p=False,
-           with_info_i_opt_list=False, with_info_full=False, sample_ext=None):
+           with_info_i_opt_list=False, with_info_full=False,
+           sample_ext=None):
     time = tpc()
     info.update({'d': d, 'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,

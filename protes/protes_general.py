@@ -5,8 +5,9 @@ from time import perf_counter as tpc
 
 
 def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
-                   is_max=False, log=False, info={}, P=None,
-                   with_info_i_opt_list=False, with_info_full=False):
+                   is_max=False, log=False, info={}, P=None, with_info_p=False,
+                   with_info_i_opt_list=False, with_info_full=False,
+                   sample_ext=None):
     time = tpc()
 
     d = len(n)
@@ -25,6 +26,9 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
     if P is None:
         rng, key = jax.random.split(rng)
         P = _generate_initial(n, r, key)
+
+    if with_info_p:
+        info['P'] = P
 
     optim = optax.adam(lr)
     state = optim.init(P)
@@ -46,13 +50,21 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         P_cur = jax.tree_util.tree_map(lambda p, u: p + u, P_cur, updates)
         return state, P_cur
 
+    is_new = None
+
     while True:
-        rng, key = jax.random.split(rng)
-        I = sample(P, jax.random.split(key, k))
+        if sample_ext:
+            I = sample_ext(P, k, seed)
+            seed += k
+        else:
+            rng, key = jax.random.split(rng)
+            I = sample(P, jax.random.split(key, k))
 
         y = f(I)
         if y is None:
             break
+        if len(y) == 0:
+            continue
 
         y = jnp.array(y)
         info['m'] += y.shape[0]
@@ -67,6 +79,9 @@ def protes_general(f, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
 
         for _ in range(k_gd):
             state, P = optimize(state, P, I[ind, :])
+
+        if with_info_p:
+            info['P'] = P
 
         info['t'] = tpc() - time
         _log(info, log, is_new)
