@@ -85,6 +85,8 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
 
 
         y = f(I)
+        if isinstance(y, tuple):
+            y, I = y
         if y is None:
             break
         if len(y) == 0:
