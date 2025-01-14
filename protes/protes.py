@@ -7,7 +7,7 @@ from time import perf_counter as tpc
 def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
            is_max=False, log=False, info={}, P=None, with_info_p=False,
            with_info_i_opt_list=False, with_info_full=False,
-           sample_ext=None, k_rnd=None):
+           sample_ext=None, k_rnd=None, do_final_update=False):
     time = tpc()
     info.update({'d': d, 'n': n, 'm_max': m, 'm': 0, 'k': k, 'k_top': k_top,
         'k_gd': k_gd, 'lr': lr, 'r': r, 'seed': seed, 'is_max': is_max,
@@ -82,8 +82,6 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
         else:
             raise NotImplementedError('Something strange')
 
-
-
         y = f(I)
         if isinstance(y, tuple):
             y, I = y
@@ -99,7 +97,9 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
 
         is_new = _process(P, I, y, info, with_info_i_opt_list, with_info_full)
 
-        if info['m_max'] and info['m'] >= info['m_max']:
+        is_end = info['m_max'] and info['m'] >= info['m_max']
+
+        if is_end and not do_final_update:
             break
 
         if k_top > 0:
@@ -111,6 +111,9 @@ def protes(f, d, n, m=None, k=100, k_top=10, k_gd=1, lr=5.E-2, r=5, seed=0,
             
             if with_info_p:
                 info['P'] = P
+
+        if is_end:
+            break
 
         info['t'] = tpc() - time
         _log(info, log, is_new)
